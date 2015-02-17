@@ -1,4 +1,4 @@
-<Name Pending>
+Name Pending
 ==============
 
 Functionality Description
