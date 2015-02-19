@@ -1,16 +1,17 @@
-Name Pending
+GeoChat
 ==============
 
-Functionality Description
+What?
 -------------------------
-* Does things 
-* Does other things 
-* Another placeholder 
+* Location-based chatroom
+* Find out what's going on around you
+* Meet people, make friends
+* Post as yourself, or anonymously
 
 Technology
 ------------
-* Framework
-* Languages
-* Backend
-* Web Frontend
-* Mobile Frontent
+* Framework: Django
+* Languages: Python, HTML5/CSS3, Javascript/JQuery
+* Platform: Web, Mobile (Cordova)
+* Database: mySQL
+* Process tool: [Trello](http://www.trello.com)
