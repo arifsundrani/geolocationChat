@@ -1,0 +1,36 @@
+.tinyProfilePic{
+        border-radius:50% 50% 50% 50%;
+}
+
+.activeChat{
+        background-color:C2A3FF;
+}
+
+.chat{
+        background-color:white;
+}
+
+.newChat{
+        background-color:lightgrey;
+}
+.navbar-scribble{
+        background-color:C2A3FF;
+}
+.msgBox{
+        margin-top:10px;
+}
+.logo{
+        font-family: 'Lora', serif;
+}
+
+.text{
+        font-family: 'Lora', serif;
+}
+.chatWindow{
+        height:100%;
+}
+
+.header{
+         margin-top:40px;
+         margin-bottom:10px;
+}
