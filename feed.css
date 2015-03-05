@@ -5,7 +5,8 @@
 }
 
 .activeChat{
-        background-color:C2A3FF;
+        background-color:7C68A3;
+        color: white;
 }
 
 .chat{
@@ -16,13 +17,14 @@
         background-color:lightgrey;
 }
 .navbar-scribble{
-        background-color:C2A3FF;
+        background-color:7C68A3;
 }
 .msgBox{
         margin-top:10px;
 }
 .logo{
         font-family: 'Lora', serif;
+        color: white;
 }
 
 .text{
