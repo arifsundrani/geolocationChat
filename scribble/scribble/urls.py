@@ -5,6 +5,7 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'scribble.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
+    # test
 
     url(r'^admin/', include(admin.site.urls)),
 )
