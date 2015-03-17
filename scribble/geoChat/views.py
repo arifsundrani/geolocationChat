@@ -12,6 +12,9 @@ from django.views.generic import (
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
+
 class  ChatView(object):
 	"""docstring for  ChatView"""
 	def __init__(self, arg):
