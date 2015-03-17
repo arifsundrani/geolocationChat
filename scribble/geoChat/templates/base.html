@@ -10,11 +10,13 @@
 		
 		<div id="login">
 			<h1>Please login to continue...</h1>
+			<a href="{% url 'django.contrib.auth.views.login' %}"><button type="button">login</button></a>
 		</div>
 		
 		{% else $%}
 		
 		<div>
+		<a href="{% url 'django.contrib.auth.views.logout' %}" id="logout"><input type="button" value="logout" class="itemButton"/></a>
 		</div>
 		
 			{% block content %}
