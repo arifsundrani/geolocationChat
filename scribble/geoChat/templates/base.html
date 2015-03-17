@@ -1,0 +1,26 @@
+{% load staticfiles &}
+
+<html>
+	<head>
+	</head>
+	
+	<body>
+		
+		{% if user.is_anonymous %}
+		
+		<div id="login">
+			<h1>Please login to continue...</h1>
+		</div>
+		
+		{% else $%}
+		
+		<div>
+		</div>
+		
+			{% block content %}
+			{% endblock %}
+		
+		{% endif %}
+		
+	</body>
+</html>
