@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.forms import User
 
 
 # Create your models here.
@@ -6,13 +7,15 @@ from django.db import models
 class Page(models.Model):
     createDate = models.DateTimeField('date created')
     topic = models.CharField(max_length = 60)
-    createUser = models.User('created this user')
+    createUser = models.ForeignKey(User, blank=True, null=True)
+    #createUser = models.User('created this user')
     location = models.ForeignKey(RegionCoordinates)
 
 class Comment(models.Model):
     text = models.CharField(max_length= 200)
     postDate = models.DateTimeField('date published')
-    poster = models.User('person posting')
+    poster = models.ForeignKey(User, blank=True, null=True)
+    #poster = models.User('person posting')
 
 class RegionCoordinates(models.Model):
     x1 = models.FloatField()
