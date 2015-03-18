@@ -28,6 +28,13 @@ router.register(r'users', UserViewSet)
 urlpatterns = patterns('',
     url(r'^(/)?$', RedirectView.as_view(url='/chat/')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^login/$', 'django.contrib.auth.views.login'),
+    url(r'^logout/$', 'django.contrib.auth.views.logout'),
+    url('^register/', CreateView.as_view(
+    	template_name='registration/register.html',
+    	form_class=UserCreationForm,
+    	success_url='/'
+    	), name='register'),
     #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     #url(r'^chat/', include('geoChat.urls')),
 )
