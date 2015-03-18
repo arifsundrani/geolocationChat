@@ -19,3 +19,7 @@ Technology
 * Platform: Web, Mobile (Cordova/Phonegap)(Hopefully, may not get to)
 * Database: mySQL
 * Process tool: [Trello](http://www.trello.com)
+
+Customer Survey
+---------------
+https://docs.google.com/forms/d/1uIyyrNZlw24HtbR2iNebtWcpxvB2yS7oTE70U48vk14/viewform?usp=send_form
