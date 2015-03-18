@@ -1,8 +1,49 @@
+<html>
+<head>
+        <title>Scribble Login</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'/>
+        <style>
 
+        .title-style{
+                color: white;
+                font-family: 'Pacifico', cursive;
+        }
+        .btn{
+                font-family: 'Pacifico', cursive;
+        }
 
-<div id="loginBox">
+        </style>
+</head>
 
-    <h1>register</h1>
+<body>
+<!--HEADER-->
+
+         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="background-color:4C1A1A">
+                <div class = "container">
+                        <div class = ".navbar-header">
+                                <a class="navbar-brand title-style"href="https://github.com/CS370-soft-eng-practicum/geolocationChat" style="color:white">Scribble</a>
+                        </div>
+                </div>
+        </nav>
+<!--END HEADER-->
+    <div class="content container" style="margin-top:50px" >
+                <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8"style="text-align:center">
+                                <div class="page-header">
+                                        <h1 style="font-family:'Pacifico',cursive;">Register For Scribble</h1>
+                                </div>
+                        </div>
+
+                        <div class="col-md-2"></div>
+                </div>
+
+                </div>
+
 
 <form action= "{{action}}" method="POST">
     {% csrf_token %}
@@ -24,4 +65,6 @@
 </form>
 
 </div>
-
+                <br>
+</body>
+</html>
