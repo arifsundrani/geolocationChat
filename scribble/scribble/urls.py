@@ -1,5 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from django.views.generic.edit import CreateView
+from django.contrib.auth.forms import UserCreationForm
 
 #REST
 from django.conf.urls import url, include
