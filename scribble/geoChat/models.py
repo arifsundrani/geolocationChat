@@ -24,6 +24,7 @@ class Comment(models.Model):
     #poster = models.User('person posting')
 
 
+#chat room
 
 class ChatRoom(models.Model):
     name = models.CharField(max_length=50)
