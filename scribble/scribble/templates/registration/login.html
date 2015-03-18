@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div id="login">
+    <h1>Scribble</h1>
+
+
+    {% if form.errors %}
+    (invalid username/password)
+    <br>
+
+    {% else %}
+    <br>
+
+    {% endif %}
+
+    <br>
+
+    <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+    {% csrf_token %}
+
+
+
+    <table>
+    <tr>
+        <td><p>username:</p></td>
+        <td>{{ form.username }}</td>
+    </tr>
+
+    <tr>
+        <td><p>password:</p></td>
+        <td>{{ form.password }}</td>
+    </tr>
+    </table>
+
+        <p></p>
+
+        <br>
+
+    <input type="submit" value="LOGIN" /> <a href="{% url "register" %}"> <button value="Register" type="button">REGISTER</button></a>
+    <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+
+</div>
+
+
+
+{% endblock %}

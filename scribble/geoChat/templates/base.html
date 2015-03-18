@@ -2,6 +2,7 @@
 
 <html>
 	<head>
+		Scribble
 	</head>
 	
 	<body>
@@ -11,6 +12,10 @@
 		<div id="login">
 			<h1>Please login to continue...</h1>
 			<a href="{% url 'django.contrib.auth.views.login' %}"><button type="button">login</button></a>
+		</div>
+		<div>
+			<h2>Or register...</h2>
+			<a href="{% url 'django.contrib.auth.views.register' %}"><button type="button">register</button></a>
 		</div>
 		
 		{% else $%}
