@@ -28,7 +28,7 @@ router.register(r'users', UserViewSet)
 '''
 
 urlpatterns = patterns('',
-    url(r'^(/)?$', RedirectView.as_view(url='/chats/')),
+    url(r'^(/)?$', RedirectView.as_view(url='//')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^login/$', 'django.contrib.auth.views.login'),
     url(r'^logout/$', 'django.contrib.auth.views.logout'),
