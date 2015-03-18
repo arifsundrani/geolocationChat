@@ -20,6 +20,12 @@ Technology
 * Database: mySQL
 * Process tool: [Trello](http://www.trello.com)
 
+How To Use 
+========== 
+* You will initially be directed to the login page, if you don't have an account follow the link to the registration page 
+* After logging in you'll arrive at the chat page, where you can see the messages from everyone around you 
+* At this point you can post and chat with the other users!
+
 Customer Survey
 ---------------
 https://docs.google.com/forms/d/1uIyyrNZlw24HtbR2iNebtWcpxvB2yS7oTE70U48vk14/viewform?usp=send_form
