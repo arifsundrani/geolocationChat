@@ -29,7 +29,7 @@ router.register(r'users', UserViewSet)
 '''
 
 urlpatterns = patterns('',
-    url(r'^(/)?$', geoChat.views.HomeView.as_view(), name = 'home'),
+    url(r'^(/)?$', RedirectView.as_view(url='/login/')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^login/$', 'django.contrib.auth.views.login'),
     url(r'^logout/$', 'django.contrib.auth.views.logout'),
