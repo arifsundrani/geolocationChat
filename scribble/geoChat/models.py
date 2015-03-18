@@ -21,4 +21,11 @@ class RegionCoordinates(models.Model):
     y2 = models.FloatField()
 
 
+class ChatRoom(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __unicode__(self):
+
+
+
 
