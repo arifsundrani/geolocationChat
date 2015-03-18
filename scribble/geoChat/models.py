@@ -4,6 +4,12 @@ from django.contrib.auth.forms import User
 
 # Create your models here.
 
+class RegionCoordinates(models.Model):
+    x1 = models.FloatField()
+    y1 = models.FloatField()
+    x2 = models.FloatField()
+    y2 = models.FloatField()
+
 class Page(models.Model):
     createDate = models.DateTimeField('date created')
     topic = models.CharField(max_length = 60)
@@ -17,18 +23,14 @@ class Comment(models.Model):
     poster = models.ForeignKey(User, blank=True, null=True)
     #poster = models.User('person posting')
 
-class RegionCoordinates(models.Model):
-    x1 = models.FloatField()
-    y1 = models.FloatField()
-    x2 = models.FloatField()
-    y2 = models.FloatField()
-    
+
 
 class ChatRoom(models.Model):
     name = models.CharField(max_length=50)
 
     def __unicode__(self):
         return self.name
+
 
 
 
