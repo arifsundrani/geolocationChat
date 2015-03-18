@@ -89,3 +89,8 @@ REST_FRAMEWORK = {
         'django.contrib.auth'
     ]
 }
+
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = 'django.contrib.auth.views.login'
+
+TEMPLATE_DIRS = ('scribble/templates', )
