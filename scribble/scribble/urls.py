@@ -39,7 +39,7 @@ urlpatterns = patterns('',
     	success_url='/'
     	), name='register'),
     #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^chats/', include('geoChat.urls')),
+    #url(r'^chats/', include('geoChat.urls')),
 )
 
 
