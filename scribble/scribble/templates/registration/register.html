@@ -1,0 +1,29 @@
+{% extends "baseLogin.html" %}
+{% block content %}
+
+<div id="loginBox">
+
+    <h1>register</h1>
+
+<form action= "{{action}}" method="POST">
+    {% csrf_token %}
+
+    {% if form.errors %}
+    (form not completed correctly)
+    {% else %}
+    <br>
+    {% endif %}
+
+    <p>username: {{ form.username }}</p>
+    <p>password: {{form.password1}}</p>
+    <p>confirm password: {{form.password2}}</p>
+
+    <br>
+
+    <a href="/"><button type="button">BACK</button></a>
+    <input type="submit" value="Submit" />
+</form>
+
+</div>
+
+{% endblock %}
