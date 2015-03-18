@@ -15,7 +15,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 
-class HomeView(RegionCoordinates):
+class HomeView(CreateView):
     model = RegionCoordinates
     template_name = 'base.html'
 
