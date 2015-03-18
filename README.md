@@ -27,5 +27,9 @@ How To Use
 * At this point you can post and chat with the other users!
 
 Customer Survey
----------------
+--------------------
 https://docs.google.com/forms/d/1uIyyrNZlw24HtbR2iNebtWcpxvB2yS7oTE70U48vk14/viewform?usp=send_form
+
+MVP Presentation
+--------------------
+https://docs.google.com/presentation/d/1vxptsxKnz0TiKZqajqURxCyaqiYOK6NgFGjwWZ2W1Iw/edit?usp=docslist_api
