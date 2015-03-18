@@ -15,6 +15,10 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 
+class HomeView(RegionCoordinates):
+    model = RegionCoordinates
+    template_name = 'base.html'
+
 class  ChatView(object):
 	"""docstring for  ChatView"""
 	def __init__(self, arg):
