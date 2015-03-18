@@ -27,8 +27,6 @@ class ChatRoom(models.Model):
     def __unicode__(self):
         return self.name
 
-    def hello(self):
-        print('hi')
 
 
 
