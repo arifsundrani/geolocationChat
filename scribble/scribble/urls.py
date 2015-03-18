@@ -6,12 +6,12 @@ from django.contrib.auth.forms import UserCreationForm
 #REST
 from django.conf.urls import url, include
 from django.contrib.auth.models import User
-from rest_framework import routers, serializers, viewsets
+#from rest_framework import routers, serializers, viewsets
 
 #twisted
 from django.views.generic import RedirectView
 
-
+'''
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
@@ -25,7 +25,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
-
+'''
 
 urlpatterns = patterns('',
     url(r'^(/)?$', RedirectView.as_view(url='/chats/')),
