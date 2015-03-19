@@ -44,7 +44,11 @@
 
                 </div>
 
-
+                <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                                            <br>
+                                            <br>
     {% if form.errors %}
     (invalid username/password)
     <br>
@@ -61,27 +65,32 @@
 
 
 
-    <table>
-    <tr>
-        <td><p>username:</p></td>
-        <td>{{ form.username }}</td>
-    </tr>
 
-    <tr>
-        <td><p>password:</p></td>
-        <td>{{ form.password }}</td>
-    </tr>
-    </table>
+        <div style="text-align:center"><label for="user_name">Username</label>
+        <div style="text-align:center"><td>{{ form.username }}</td>
+
+
+
+        <div style="text-align:center"><label for="password" style="margin-top:10px">Password</label>
+        <div style="text-align:center"><td>{{ form.password }}</td>
+
 
         <p></p>
 
         <br>
 
-    <input type="submit" value="LOGIN" /> <a href="{% url "register" %}"> <button value="Register" type="button">REGISTER</button></a>
-    <input type="hidden" name="next" value="{{ next }}" />
+        <div style="text-align:center"><input type="submit"value="Submit" class="btn btn-primary" style="margin-top:10px">
+
+    <div style="text-align:center"><input type="submit" value="Login" class="btn btn-primary" style="margin-top:10px"/> <a href="{% url "register" %}">
+        <button value="Register" type="button" class="btn btn-primary" style="margin-top:10px">Register</button></a>
+    <div style="text-align:center"><input type="hidden" name="next" value="{{ next }}" class="btn btn-primary" style="margin-top:10px"/>
     </form>
 
 </div>
+                                            </div>
+                        <div class="col-md-2"></div>
+                </div>
+
                 <br>
 </body>
 </html>
