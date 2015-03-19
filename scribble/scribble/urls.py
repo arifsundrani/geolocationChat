@@ -29,7 +29,7 @@ router.register(r'users', UserViewSet)
 '''
 
 urlpatterns = patterns('',
-    url(r'^(/)?$', RedirectView.as_view(url='/home/')),
+    url(r'^(/)?$', RedirectView.as_view(url='/chats/1/')),
     url('^home/', CreateView.as_view(
     	template_name='home.html',
     	form_class=UserCreationForm,

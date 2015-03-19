@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <html>
 <head>
         <title>Scribble Login</title>
@@ -6,6 +7,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
         <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'/>
+
+        <link rel="stylesheet" href="{% static "feed.css" %}"></link>
         <style>
 
         .title-style{
@@ -22,13 +25,13 @@
 <body>
 <!--HEADER-->
 
-         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="background-color:4C1A1A">
-                <div class = "container">
-                        <div class = ".navbar-header">
-                                <a class="navbar-brand title-style"href="https://github.com/CS370-soft-eng-practicum/geolocationChat" style="color:white">Scribble</a>
+         <nav class="navbar navbar-scribble navbar-fixed-top">
+                <div id="navtop" class="container-fluid" >
+                        <div class="navbar-header" >
+                                <span class="navbar-brand logo" >Scribble</span>
                         </div>
                 </div>
-        </nav>
+    </nav>
 <!--END HEADER-->
     <div class="content container" style="margin-top:50px" >
                 <div class="row">

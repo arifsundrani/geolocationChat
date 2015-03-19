@@ -95,3 +95,5 @@ LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'django.contrib.auth.views.login'
 
 TEMPLATE_DIRS = ('scribble/templates', )
+
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'staticfiles'),)

@@ -23,18 +23,30 @@
         margin-top:10px;
 }
 .logo{
-        font-family: 'Lora', serif;
+        font-family: 'Pacifico', cursive;
         color: white;
+        font-size: 24;
 }
 
 .text{
-        font-family: 'Lora', serif;
+        font-family: 'Pacifico', cursive;
 }
 .chatWindow{
-        height:100%;
+
 }
 
 .header{
          margin-top:40px;
          margin-bottom:10px;
+}
+.brk{
+    border: none;
+    height: 1px;
+    color: lightgrey;
+    background: lightgrey;
+    width:80%;
+}
+
+.message{
+    margin-bottom:5px;
 }
