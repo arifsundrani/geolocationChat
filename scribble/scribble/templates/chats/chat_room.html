@@ -52,7 +52,10 @@
       if (e.keyCode == 13) {
         e.preventDefault(); // sometimes useful
         if(inputbox.value !== ""){
-            chat.send(inputbox.value);
+
+
+
+            chat.send("{{user}}: " + inputbox.value);
             inputbox.value="";
         }
       }
