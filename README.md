@@ -33,3 +33,9 @@ https://docs.google.com/forms/d/1uIyyrNZlw24HtbR2iNebtWcpxvB2yS7oTE70U48vk14/vie
 MVP Presentation
 --------------------
 https://docs.google.com/presentation/d/1vxptsxKnz0TiKZqajqURxCyaqiYOK6NgFGjwWZ2W1Iw/edit?usp=docslist_api
+
+Testing
+--------------------
+*The link below is to the Django documentation on how to run tests
+*https://docs.djangoproject.com/en/1.7/topics/testing/overview/
+*To run all tests, navigate to the folder with manage.py and run the following command: ./manage.py test geoChat.tests
