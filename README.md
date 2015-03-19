@@ -36,6 +36,6 @@ https://docs.google.com/presentation/d/1vxptsxKnz0TiKZqajqURxCyaqiYOK6NgFGjwWZ2W
 
 Testing
 --------------------
-*The link below is to the Django documentation on how to run tests
-*https://docs.djangoproject.com/en/1.7/topics/testing/overview/
-*To run all tests, navigate to the folder with manage.py and run the following command: ./manage.py test geoChat.tests
+* The link below is to the Django documentation on how to run tests
+* https://docs.djangoproject.com/en/1.7/topics/testing/overview/
+* To run all tests, navigate to the folder with manage.py and run the following command: ./manage.py test geoChat.tests
