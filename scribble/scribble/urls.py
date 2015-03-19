@@ -29,7 +29,12 @@ router.register(r'users', UserViewSet)
 '''
 
 urlpatterns = patterns('',
-    url(r'^(/)?$', RedirectView.as_view(url='/login/')),
+    url(r'^(/)?$', RedirectView.as_view(url='/home/')),
+    url('^home/', CreateView.as_view(
+    	template_name='home.html',
+    	form_class=UserCreationForm,
+    	success_url='/'
+    	), name='home'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^login/$', 'django.contrib.auth.views.login'),
     url(r'^logout/$', 'django.contrib.auth.views.logout'),

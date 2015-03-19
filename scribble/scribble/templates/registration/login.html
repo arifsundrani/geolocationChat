@@ -1,9 +1,54 @@
+<html>
+<head>
+        <title>Scribble Login</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'/>
+        <style>
 
+        .title-style{
+                color: white;
+                font-family: 'Pacifico', cursive;
+        }
+        .btn{
+                font-family: 'Pacifico', cursive;
+        }
 
-<div id="login">
-    <h1>Scribble</h1>
+        </style>
+</head>
 
+<body>
+<!--HEADER-->
 
+         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="background-color:4C1A1A">
+                <div class = "container">
+                        <div class = ".navbar-header">
+                                <a class="navbar-brand title-style"href="https://github.com/CS370-soft-eng-practicum/geolocationChat" style="color:white">Scribble</a>
+                        </div>
+                </div>
+        </nav>
+<!--END HEADER-->
+    <div class="content container" style="margin-top:50px" >
+                <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8"style="text-align:center">
+                                <div class="page-header">
+                                        <h1 style="font-family:'Pacifico',cursive;">Login to Scribble</h1>
+                                </div>
+                        </div>
+
+                        <div class="col-md-2"></div>
+                </div>
+
+                </div>
+
+                <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                                            <br>
+                                            <br>
     {% if form.errors %}
     (invalid username/password)
     <br>
@@ -20,27 +65,33 @@
 
 
 
-    <table>
-    <tr>
-        <td><p>username:</p></td>
-        <td>{{ form.username }}</td>
-    </tr>
 
-    <tr>
-        <td><p>password:</p></td>
-        <td>{{ form.password }}</td>
-    </tr>
-    </table>
+        <div style="text-align:center"><label for="user_name">Username</label>
+        <div style="text-align:center"><td>{{ form.username }}</td>
+
+
+
+        <div style="text-align:center"><label for="password" style="margin-top:10px">Password</label>
+        <div style="text-align:center"><td>{{ form.password }}</td>
+
 
         <p></p>
 
         <br>
 
-    <input type="submit" value="LOGIN" /> <a href="{% url "register" %}"> <button value="Register" type="button">REGISTER</button></a>
-    <input type="hidden" name="next" value="{{ next }}" />
+    <div style="text-align:center"><input type="submit" value="Login" class="btn btn-primary" style="margin-top:10px"/> <a href="{% url "register" %}">
+        <button value="Register" type="button" class="btn btn-primary" style="margin-top:10px">Register</button></a>
+    <div style="text-align:center"><input type="hidden" name="next" value="{{ next }}" class="btn btn-primary" style="margin-top:10px"/>
     </form>
 
 </div>
+                                            </div>
+                        <div class="col-md-2"></div>
+                </div>
+
+                <br>
+</body>
+</html>
 
 
 
