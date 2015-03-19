@@ -20,9 +20,10 @@ class Page(models.Model):
 class Comment(models.Model):
     text = models.CharField(max_length= 200)
     postDate = models.DateTimeField('date published')
-    poster = models.ForeignKey(User, blank=True, null=True)
-    #poster = models.User('person posting')
-
+    name = models.CharField(max_length=12)
+    def __unicode__ (self):
+        return self.text
+    #poster = models.ForeignKey(User, blank=True, null=True)
 
 #chat room
 
