@@ -5,7 +5,7 @@ from twisted.web.websockets import WebSocketsResource, WebSocketsProtocol, looku
 class MyChat(basic.LineReceiver):
     def connectionMade(self):
         print "User connected"
-        self.transport.write('connected ....\n')
+        self.transport.write('Welcome! \n')
         self.factory.clients.append(self)
 
     def connectionLost(self, reason):
