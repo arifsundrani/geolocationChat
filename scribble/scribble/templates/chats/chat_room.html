@@ -29,7 +29,7 @@
           chat.ws.send(message);
     }
 
-
+    var messages = document.getElementById("message_list");
 
     chat.ws.onmessage = function (event) {
       var messageFromServer = event.data;
@@ -44,6 +44,7 @@
        $("#message_list ul").append(break_element);
        */
        beep();
+       messages.scrollTop = messages.scrollHeight;
     };
 
     var inputBox = document.getElementById("inputbox");
