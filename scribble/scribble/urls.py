@@ -41,7 +41,7 @@ urlpatterns = patterns('',
     url('^register/', CreateView.as_view(
     	template_name='registration/register.html',
     	form_class=UserCreationForm,
-    	success_url='/'
+    	success_url='/login'
     	), name='register'),
     #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^chats/', include('geoChat.urls')),
