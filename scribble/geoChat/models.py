@@ -29,6 +29,7 @@ class Comment(models.Model):
 
 class ChatRoom(models.Model):
     name = models.CharField(max_length=50)
+    messages = []
 
     def __unicode__(self):
         return self.name
