@@ -1,0 +1,70 @@
+{% load staticfiles %}
+<html>
+<head>
+        <title>Scribble Login</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'/>
+
+        <link rel="stylesheet" href="{% static "feed.css" %}"></link>
+        <style>
+
+        .title-style{
+                color: white;
+                font-family: 'Pacifico', cursive;
+        }
+        .btn{
+                font-family: 'Pacifico', cursive;
+        }
+
+        </style>
+</head>
+
+<body>
+<!--HEADER-->
+
+         <nav class="navbar navbar-scribble navbar-fixed-top">
+                <div id="navtop" class="container-fluid" >
+                        <div class="navbar-header" >
+                                <span class="navbar-brand logo" >Scribble</span>
+                        </div>
+                </div>
+    </nav>
+<!--END HEADER-->
+    <div class="content container" style="margin-top:50px" >
+                <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8"style="text-align:center">
+                                <div class="page-header">
+                                        <h1 style="font-family:'Pacifico',cursive;">User Settings</h1>
+                                </div>
+                        </div>
+
+                        <div class="col-md-2"></div>
+                </div>
+
+                </div>
+<div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                                            <br>
+
+
+        <div style="text-align:center"><a href="/changepass" class="btn btn-default" style="margin-top:10px">Change your password</a>
+
+        <br>
+        <br>
+
+        <div style="text-align:center"><a href="/login" class="btn btn-default" style="margin-top:10px">Change your username</a>
+
+                            <br>
+                            <br>
+                        </div>
+                        <div class="col-md-2"></div>
+
+</div>
+                <br>
+</body>
+</html>

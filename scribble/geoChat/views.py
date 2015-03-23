@@ -3,6 +3,7 @@ from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 from geoChat.models import Page, Comment, RegionCoordinates
 from django.core.urlresolvers import reverse
+from django.views.generic import View
 from django.views.generic import (
     ListView,
     CreateView,
@@ -27,6 +28,10 @@ def index(request):
 def chat_room(request, chat_room_id):
     chat = get_object_or_404(ChatRoom, pk=chat_room_id)
     return render(request, 'chats/chat_room.html', {'chat': chat})
+
+class showSettings(View):
+    def get(self, request):
+        return render(request, 'settings.html')
 
 
 class HomeView(CreateView):
