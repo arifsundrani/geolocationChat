@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import PasswordChangeForm
 import geoChat.views
 
 #REST
@@ -43,6 +44,13 @@ urlpatterns = patterns('',
     	form_class=UserCreationForm,
     	success_url='/login'
     	), name='register'),
+    url(r'^settings/$', geoChat.views.showSettings.as_view(), name = 'settings'),
+    url('^changepass/', CreateView.as_view(
+    	template_name='settings/password.html',
+    	form_class=PasswordChangeForm,
+    	success_url='/'
+    	), name='password'),
+
     #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^chats/', include('geoChat.urls')),
 )
