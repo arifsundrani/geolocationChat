@@ -29,6 +29,11 @@
           chat.ws.send(message);
     }
 
+      chat.ws.onopen = function (event){
+        chat.send("{{user}}:-:{{chat.name}}")
+    }
+
+
     var messages = document.getElementById("message_list");
 
     chat.ws.onmessage = function (event) {
