@@ -30,14 +30,12 @@ class Comment(models.Model):
 
 
 class ChatRoom(models.Model):
+
     name = models.CharField(max_length=50)
     clients = []
+    messages = []
 
     def __unicode__(self):
         return self.name
-
-    def __init__(self, *args, **kwargs):
-        self.messages = []
-
 
 

@@ -18,6 +18,8 @@ from django.contrib.auth import authenticate
 
 from models import ChatRoom
 
+
+
 def index(request):
     chat_rooms = ChatRoom.objects.order_by('name')[:5]
     context = {
