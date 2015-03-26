@@ -16,7 +16,7 @@ class MyChat(basic.LineReceiver):
         self.factory.clients.append(self)
 
     def connectionLost(self, reason):
-        print "User disconnected", self.count
+        print "User disconnected"
         if self.current_room is not None:
             self.factory.live_rooms[self.current_room.name].clients.remove(self)
         else:

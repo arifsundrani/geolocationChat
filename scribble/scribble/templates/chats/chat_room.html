@@ -24,7 +24,7 @@
         }
     $(document).ready( function() {
         window.chat = {};
-        chat.ws = $.gracefulWebSocket("ws://10.40.160.49:1025/ws");
+        chat.ws = $.gracefulWebSocket("ws://dutch.mathcs.emory.edu:8026/ws");
         chat.send = function (message) {
           chat.ws.send(message);
     }
