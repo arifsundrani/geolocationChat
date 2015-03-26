@@ -18,6 +18,9 @@ class MyChat(basic.LineReceiver):
     def connectionLost(self, reason):
         print "User disconnected"
         if self.current_room is not None:
+            for c in self.factory.live_rooms[self.current_room.name].clients:
+                c.message('l ' + self.user_name)
+
             self.factory.live_rooms[self.current_room.name].clients.remove(self)
         else:
             self.factory.clients.remove(self)
@@ -52,11 +55,14 @@ class MyChat(basic.LineReceiver):
         print(split[0] + ' joining ' + split[1])
 
     def enter_room(self):
-        if self.current_room.name in self.factory.live_rooms:
-            self.factory.live_rooms[self.current_room.name].clients.append(self)
-        else:
+        if self.current_room.name not in self.factory.live_rooms:
             self.factory.live_rooms[self.current_room.name] = LiveRoom()
-            self.factory.live_rooms[self.current_room.name].clients.append(self)
+
+        self.factory.live_rooms[self.current_room.name].clients.append(self)
+
+        for c in self.factory.live_rooms[self.current_room.name].clients:
+            c.message('j ' + self.user_name)
+
 
 
 #Twisted imports
@@ -95,5 +101,5 @@ root.putChild("ws", resource)
 
 application = service.Application("chatserver")
 
-internet.TCPServer(1025, Site(root)).setServiceParent(application)
+internet.TCPServer(8026, Site(root)).setServiceParent(application)
 
