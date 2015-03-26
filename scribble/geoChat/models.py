@@ -38,4 +38,14 @@ class ChatRoom(models.Model):
     def __unicode__(self):
         return self.name
 
+    def get_messages(self):
+        return self.messages
 
+    def add_client(self, client):
+        self.clients.append(client)
+
+    def add_message(self, message):
+        self.messages.append(message)
+
+    def remove_client(self, client):
+        self.clients.remove(client)
