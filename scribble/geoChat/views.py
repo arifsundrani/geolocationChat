@@ -31,6 +31,10 @@ def chat_room(request, chat_room_id):
     chat = get_object_or_404(ChatRoom, pk=chat_room_id)
     return render(request, 'chats/chat_room.html', {'chat': chat})
 
+def showSettings(request):
+	return render(request, 'settings.html')
+
+'''
 class showSettings(View):
     def get(self, request):
         return render(request, 'settings.html')
@@ -69,3 +73,4 @@ class CreateChatView(object):
 	def __init__(self, arg):
 		super(CreateChatView, self).__init__()
 		self.arg = arg
+'''

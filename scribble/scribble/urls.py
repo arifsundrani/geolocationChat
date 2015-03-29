@@ -44,7 +44,7 @@ urlpatterns = patterns('',
     	form_class=UserCreationForm,
     	success_url='/login'
     	), name='register'),
-    url(r'^settings/$', geoChat.views.showSettings.as_view(), name = 'settings'),
+    url(r'^settings/$', geoChat.views.showSettings, name = 'settings'),#.as_view(), name = 'settings'),
     url('^changepass/', CreateView.as_view(
     	template_name='settings/password.html',
     	form_class=PasswordChangeForm,
