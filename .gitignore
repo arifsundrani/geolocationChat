@@ -57,3 +57,5 @@ target/
 
 # PyCharm files
 .idea/
+
+scribble/geoChat/migrations/0002_auto_20150330_0249.py
