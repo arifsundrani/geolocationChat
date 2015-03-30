@@ -18,10 +18,11 @@ class Page(models.Model):
     location = models.ForeignKey(RegionCoordinates)
 
 class Comment(models.Model):
-    text = models.CharField(max_length= 200)
+    text = models.TextField()
     postDate = models.DateTimeField('date published')
-    name = models.CharField(max_length=12)
-
+    name = models.CharField(max_length=30)
+    active = models.BooleanField(default=True)
+    spam = models.BooleanField(default=False)
     def __unicode__ (self):
         return self.text
     #poster = models.ForeignKey(User, blank=True, null=True)
@@ -32,6 +33,7 @@ class Comment(models.Model):
 class ChatRoom(models.Model):
 
     name = models.CharField(max_length=50)
-
+    chat_list = [Comment()]*200
+    active = models.BooleanField(default=True)
     def __unicode__(self):
         return self.name

@@ -44,13 +44,8 @@ urlpatterns = patterns('',
     	form_class=UserCreationForm,
     	success_url='/login' #have a login_redirect that logs people in? if you dont have the right data redirect people to login page?
     	), name='register'),
-<<<<<<< Updated upstream
-    url(r'^settings/$', geoChat.views.showSettings, name = 'settings'),#.as_view(), name = 'settings'),
-    url('^changepass/', CreateView.as_view(
-=======
-    url(r'^settings/$', geoChat.views.showSettings.as_view(), name = 'settings'),
+    url(r'^settings/$', geoChat.views.showSettings, name='settings'),#.as_view(), name = 'settings'),
     url('^password/', CreateView.as_view(
->>>>>>> Stashed changes
     	template_name='settings/password.html',
     	form_class=PasswordChangeForm(),
     	success_url='/'
