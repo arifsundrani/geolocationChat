@@ -39,6 +39,16 @@
     chat.ws.onmessage = function (event) {
       var messageFromServer = event.data;
 
+      if(messageFromServer.charAt(0) === 'j')
+      {
+        var user_join = document.createElement('li');
+        user_join.className = "onlineUser";
+        user_join.innerHtml = messageFromServer; //lets pretend this works
+        $("user_list ul").append(user_join);
+      }else if (messageFromServer.charAt(0) === 'l'){
+
+      }
+
       var list_element = document.createElement('div');
       list_element.className = "row message";
       list_element.innerHTML = messageFromServer;
@@ -49,6 +59,7 @@
        $("#message_list ul").append(break_element);
        */
        messages.scrollTop = messages.scrollHeight;
+
     };
 
     var inputBox = document.getElementById("inputbox");
@@ -81,7 +92,7 @@
                                 <span class="navbar-brand logo" >Scribble</span>
                         </div>
 
-                <a href="{% url 'logout' %}"><button class="btn btn-default navbar-text navbar-right" style="margin-right:10px; font-color:white">Logout</button></a>
+                <a href="{% url 'logout' %}"><button class="btn btn-default btn-xs navbar-text navbar-right" style="margin-right:10px; font-color:white">Logout</button></a>
                 </div>
     </nav>
     <div class="row header">
@@ -105,6 +116,15 @@
                           </ul>
                     </div>
                 </div>
+                <div class = "col-md-2">
+                        <div class="well" style="height:60%;overflow:scroll; overflow-x:hidden">
+                            Online now
+                            <ul id="user_list">
+                                <li>me</li><li>me</li><li>me</li><li>me</li>
+                            </ul>
+
+                        </div>
+                    </div>
                 <div class="row col col-md-8 col-md-offset-2" style="margin-top:20px">
                     <div>
                         <input class="form-control" name="term" id="inputbox" cols="40" rows="4"></input>
