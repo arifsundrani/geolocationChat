@@ -23,10 +23,10 @@ class Page(models.Model):
 
 
 class ChatRoom(models.Model):
-    room_name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
     active = models.BooleanField(default=True)
     def __unicode__(self):
-        return self.room_name
+        return self.name
 
 class Comment(models.Model):
     text = models.TextField()
