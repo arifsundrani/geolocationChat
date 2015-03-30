@@ -86,7 +86,8 @@
                         <div class="navbar-header" >
                                 <span class="navbar-brand logo" >Scribble</span>
                         </div>
-                    <a href="{% url 'logout' %}"><button class="btn btn-default navbar-text navbar-right" style="margin-right:10px; font-color:white">Logout</button></a>
+                    <span class="navbar-right"><a href="{% url 'logout' %}"><button class="btn btn-xs btn-default" style="margin-right:10px; font-color:white">Logout</button></a></span>
+                    <span class="navbar-right" style="margin-right:10px"><p style="color:white">{{user}}</p></span>
                 </div>
     </nav>
     <div class="row header">
