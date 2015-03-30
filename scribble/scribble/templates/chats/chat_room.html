@@ -3,6 +3,7 @@
 <head>
  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{% static 'feed.css' %}">
  <script type="text/javascript" src="{% static 'jquery.gracefulWebSocket.js' %}"></script>
  <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'/>
@@ -86,7 +87,19 @@
                         <div class="navbar-header" >
                                 <span class="navbar-brand logo" >Scribble</span>
                         </div>
-                    <a href="{% url 'logout' %}"><button class="btn btn-default navbar-text navbar-right" style="margin-right:10px; font-color:white">Logout</button></a>
+
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:black">{{user}}<span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                     <li><a href="#">Settings</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                              </ul>
+                            </li>
+                      </ul>
+                    </div>
                 </div>
     </nav>
     <div class="row header">
