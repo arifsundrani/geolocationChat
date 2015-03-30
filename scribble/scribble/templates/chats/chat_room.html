@@ -44,11 +44,12 @@
      {
         var new_user = document.createElement('li');
         new_user.className = "active_user";
+        new_user.id = messageFromServer.substr(2);
         new_user.innerHTML = messageFromServer.substr(2);
         $("#user_list ul").append(new_user);
      }else if(messageFromServer.charAt(0) === 'l')
      {
-     //TODO: remove users that have left from sidebar
+         document.getElementById(messageFromServer.substr(2)).style.display = "none";
      }else{
 
           var list_element = document.createElement('div');
