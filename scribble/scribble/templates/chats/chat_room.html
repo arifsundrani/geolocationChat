@@ -57,7 +57,8 @@
       if (e.keyCode == 13) {
         e.preventDefault(); // sometimes useful
         if(inputbox.value !== ""){
-            chat.send("<b>{{user}}:</b> " + inputbox.value);
+            var date = new Date(), dateString = (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear().toString().substr(2,2);
+            chat.send("<b>{{user}}:</b> " + inputbox.value + " -" dateString;
             inputbox.value="";
         }
       }
@@ -79,6 +80,8 @@
                         <div class="navbar-header" >
                                 <span class="navbar-brand logo" >Scribble</span>
                         </div>
+
+                <a href="{% url 'logout' %}"><button class="btn btn-default navbar-text navbar-right" style="margin-right:10px; font-color:white">Logout</button></a>
                 </div>
     </nav>
     <div class="row header">

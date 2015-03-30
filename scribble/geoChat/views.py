@@ -1,5 +1,5 @@
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import Http404
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from geoChat.models import Page, Comment, RegionCoordinates
 from django.core.urlresolvers import reverse
@@ -14,6 +14,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 from django.contrib.auth.models import User
+from django.contrib.auth import logout
 from django.contrib.auth import authenticate
 
 from models import ChatRoom
@@ -34,8 +35,9 @@ def chat_room(request, chat_room_id):
 def showSettings(request):
 	return render(request, 'settings.html')
 	
-def logout(request):
-	return render(request, 'login.html')
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect('/login/')
 
 '''
 class showSettings(View):

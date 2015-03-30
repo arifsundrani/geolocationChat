@@ -1,3 +1,4 @@
+from django.contrib.auth import logout
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.views.generic.edit import CreateView
@@ -38,7 +39,8 @@ urlpatterns = patterns('',
     	), name='home'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^login/$', 'django.contrib.auth.views.login'),
-    url(r'^logout/$', 'django.contrib.auth.views.logout'),
+    #url(r'^logout/$', 'django.contrib.auth.views.logout'),
+    url(r'^logout/$', geoChat.views.logout_view, name='logout'),
     url('^register/', CreateView.as_view(
     	template_name='registration/register.html',
     	form_class=UserCreationForm,
