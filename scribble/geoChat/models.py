@@ -17,23 +17,23 @@ class Page(models.Model):
     #createUser = models.User('created this user')
     location = models.ForeignKey(RegionCoordinates)
 
-class Comment(models.Model):
-    text = models.TextField()
-    postDate = models.DateTimeField('date published')
-    name = models.CharField(max_length=30)
-    active = models.BooleanField(default=True)
-    spam = models.BooleanField(default=False)
-    def __unicode__ (self):
-        return self.text
     #poster = models.ForeignKey(User, blank=True, null=True)
 
 #chat room
 
 
 class ChatRoom(models.Model):
-
-    name = models.CharField(max_length=50)
-    chat_list = [Comment()]*200
+    room_name = models.CharField(max_length=50)
     active = models.BooleanField(default=True)
     def __unicode__(self):
-        return self.name
+        return self.room_name
+
+class Comment(models.Model):
+    text = models.TextField()
+    postDate = models.DateTimeField('date published')
+    name = models.CharField(max_length=30)
+    active = models.BooleanField(default=True)
+    spam = models.BooleanField(default=False)
+    chat_room = models.ForeignKey(ChatRoom, blank=True, null=True)
+    def __unicode__ (self):
+        return self.text

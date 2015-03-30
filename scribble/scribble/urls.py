@@ -44,7 +44,7 @@ urlpatterns = patterns('',
     url('^register/', CreateView.as_view(
     	template_name='registration/register.html',
     	form_class=UserCreationForm,
-    	success_url='/login' #have a login_redirect that logs people in? if you dont have the right data redirect people to login page?
+    	success_url='/' #have a login_redirect that logs people in? if you dont have the right data redirect people to login page?
     	), name='register'),
     url(r'^settings/$', geoChat.views.showSettings, name='settings'),#.as_view(), name = 'settings'),
    # url('^password/', CreateView.as_view(
