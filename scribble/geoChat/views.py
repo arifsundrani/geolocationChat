@@ -33,6 +33,9 @@ def chat_room(request, chat_room_id):
 
 def showSettings(request):
 	return render(request, 'settings.html')
+	
+def logout(request):
+	return render(request, 'login.html')
 
 '''
 class showSettings(View):
