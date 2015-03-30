@@ -39,6 +39,14 @@
     chat.ws.onmessage = function (event) {
       var messageFromServer = event.data;
 
+     if(messageFromServer.charAt(0) === 'j')
+     {
+        var new_user = document.createElement('li');
+        new_user.className = "active_user";
+        new_user.innerHTML = messageFromServer.substr(2);
+        $("#user_list ul").append(new_user);
+     }
+
       var list_element = document.createElement('div');
       list_element.className = "row message";
       list_element.innerHTML = messageFromServer;
@@ -102,11 +110,12 @@
                         </ul>
                     </div>
                 </div>
+
                 <div class="col col-md-2">
                     <div class="well" id="user_list" style="height:60%;overflow:scroll; overflow-x:hidden;">
-                        <p>Users online</p>
+                        <strong>Online now</strong>
                         <ul>
-                            <li>test</li>
+                            <li id="lame">testytest</li>
                         </ul>
                     </div>
                 </div>
