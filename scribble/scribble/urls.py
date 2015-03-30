@@ -45,11 +45,11 @@ urlpatterns = patterns('',
     	success_url='/login' #have a login_redirect that logs people in? if you dont have the right data redirect people to login page?
     	), name='register'),
     url(r'^settings/$', geoChat.views.showSettings, name='settings'),#.as_view(), name = 'settings'),
-    url('^password/', CreateView.as_view(
+   ''' url('^password/', CreateView.as_view(
     	template_name='settings/password.html',
     	form_class=PasswordChangeForm(),
     	success_url='/'
-    	), name='password'),
+    	), name='password'),'''
 
     #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^chats/', include('geoChat.urls')),
