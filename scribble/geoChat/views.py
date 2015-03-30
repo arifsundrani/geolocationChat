@@ -39,6 +39,8 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/login/')
 
+
+#add view function to make new chat rooms
 '''
 class showSettings(View):
     def get(self, request):

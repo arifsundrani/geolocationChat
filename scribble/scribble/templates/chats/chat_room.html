@@ -58,7 +58,7 @@
         e.preventDefault(); // sometimes useful
         if(inputbox.value !== ""){
             var date = new Date(), dateString = (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear().toString().substr(2,2);
-            chat.send("<b>{{user}}:</b> " + inputbox.value + " -" dateString;
+            chat.send("<b>{{user}}:</b> " + inputbox.value + " -" dateString; /*make chatbox have text wrapping */
             inputbox.value="";
         }
       }
