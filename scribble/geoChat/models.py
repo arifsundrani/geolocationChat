@@ -24,7 +24,7 @@ class Page(models.Model):
 
 class ChatRoom(models.Model):
     name = models.CharField(max_length=50)
-    active = models.BooleanField(default=True)
+    #active = models.BooleanField(default=True)
     def __unicode__(self):
         return self.name
 
