@@ -46,18 +46,22 @@
         new_user.className = "active_user";
         new_user.innerHTML = messageFromServer.substr(2);
         $("#user_list ul").append(new_user);
-     }
+     }else if(messageFromServer.charAt(0) === 'l')
+     {
+     //TODO: remove users that have left from sidebar
+     }else{
 
-      var list_element = document.createElement('div');
-      list_element.className = "row message";
-      list_element.innerHTML = messageFromServer;
-      $("#message_list ul").append(list_element);
-        /*
-        var break_element = document.createElement('hr');
-        break_element.className= "brk";
-       $("#message_list ul").append(break_element);
-       */
-       messages.scrollTop = messages.scrollHeight;
+          var list_element = document.createElement('div');
+          list_element.className = "row message";
+          list_element.innerHTML = messageFromServer;
+          $("#message_list ul").append(list_element);
+            /*
+            var break_element = document.createElement('hr');
+            break_element.className= "brk";
+           $("#message_list ul").append(break_element);
+           */
+           messages.scrollTop = messages.scrollHeight;
+       }
     };
 
     var inputBox = document.getElementById("inputbox");
@@ -128,7 +132,6 @@
                     <div class="well" id="user_list" style="height:60%;overflow:scroll; overflow-x:hidden;">
                         <strong>Online now</strong>
                         <ul>
-                            <li id="lame">testytest</li>
                         </ul>
                     </div>
                 </div>
