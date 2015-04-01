@@ -14,7 +14,7 @@ class ChatRoomTest(TestCase):
         self.assertEqual(a.name, 'Emory')
         self.assertEqual(a.active, True)
 
-class CommentTest(TestCase):C
+class CommentTest(TestCase):
     def test_comment_was_made(self):
         c = Comment.objects.create(text='This chat room is wicked cool.', postDate=timezone.now(), user_name='AnonymousUser')
         c.save()
