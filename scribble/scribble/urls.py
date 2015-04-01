@@ -41,11 +41,12 @@ urlpatterns = patterns('',
     url(r'^login/$', 'django.contrib.auth.views.login'),
     #url(r'^logout/$', 'django.contrib.auth.views.logout'),
     url(r'^logout/$', geoChat.views.logout_view, name="logout"),
-    url('^register/', CreateView.as_view(
-    	template_name='registration/register.html',
-    	form_class=UserCreationForm,
-    	success_url='/' #have a login_redirect that logs people in? if you dont have the right data redirect people to login page?
-    	), name='register'),
+    #url('^register/', CreateView.as_view(
+    #	template_name='registration/register.html',
+    #	form_class=UserCreationForm,
+    #	success_url='/' #have a login_redirect that logs people in? if you dont have the right data redirect people to login page?
+    #	), name='register'),
+    url('^register/', geoChat.views.CreateRegisterView.as_view(),name='register'),
     url(r'^settings/$', geoChat.views.showSettings, name='settings'),#.as_view(), name = 'settings'),
    # url('^password/', CreateView.as_view(
    #	template_name='settings/password.html',

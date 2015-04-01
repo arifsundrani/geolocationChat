@@ -24,14 +24,14 @@ class Page(models.Model):
 
 class ChatRoom(models.Model):
     name = models.CharField(max_length=50)
-    #active = models.BooleanField(default=True)
+    active = models.BooleanField(default=True) #maybe add isSubChat boolean with parentChat name
     def __unicode__(self):
         return self.name
 
 class Comment(models.Model):
     text = models.TextField()
     postDate = models.DateTimeField('date published')
-    name = models.CharField(max_length=30)
+    user_name = models.CharField(max_length=30)
     active = models.BooleanField(default=True)
     spam = models.BooleanField(default=False)
     chat_room = models.ForeignKey(ChatRoom, blank=True, null=True)

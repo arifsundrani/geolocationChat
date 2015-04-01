@@ -4,6 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from geoChat.models import Page, Comment, RegionCoordinates
 from django.core.urlresolvers import reverse
 from django.views.generic import View
+from django.views.generic import FormView
 from django.views.generic import (
     ListView,
     CreateView,
@@ -14,9 +15,8 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 from django.contrib.auth.models import User
-from django.contrib.auth import logout
-from django.contrib.auth import authenticate
-
+from django.contrib.auth import logout, login, authenticate
+from django.contrib.auth.forms import UserCreationForm
 from models import ChatRoom
 
 
@@ -39,6 +39,22 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/login/')
 
+class CreateRegisterView(FormView):
+    template_name = 'registration/register.html'
+    form_class = UserCreationForm
+    success_url = '/'
+
+    def form_valid(self, form):
+        form.save()
+        username = self.request.POST['username']
+        password = self.request.POST['password1']
+        user = authenticate(username=username, password=password)
+        login(self.request, user)
+        return super(CreateRegisterView, self).form_valid(form)
+
+
+def create_chat_room(request):
+    return HttpResponseRedirect('/')
 
 #add view function to make new chat rooms
 '''

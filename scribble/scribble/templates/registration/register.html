@@ -50,8 +50,8 @@
                         <div class="col-md-2"></div>
                         <div class="col-md-8">
                                             <br>
-
-<form action= "{{action}}" method="POST">
+<!-- "{{action}}" -->
+<form action="{{action}}" method="POST" id="form">
     {% csrf_token %}
 
     {% if form.errors %}
