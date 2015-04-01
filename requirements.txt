@@ -1,1 +1,1 @@
-pip install Django==1.7.7
+Django==1.7.7
