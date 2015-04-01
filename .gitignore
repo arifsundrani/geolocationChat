@@ -59,3 +59,4 @@ target/
 .idea/
 
 scribble/geoChat/migrations/0002_auto_20150330_0249.py
+scribble/geoChat/migrations/0004_auto_20150329_2328.py
