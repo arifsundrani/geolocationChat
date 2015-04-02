@@ -4,7 +4,8 @@ from django.db import models
 from django.contrib.auth.forms import User
 from django.utils import timezone
 from geoChat.models import Comment, ChatRoom
-
+#testing
+#added comment
 
 
 class ChatRoomTest(TestCase):
