@@ -95,13 +95,13 @@
      <nav class="navbar navbar-scribble navbar-fixed-top">
                 <div id="navtop" class="container-fluid" >
                         <div class="navbar-header" >
-                                <span class="navbar-brand logo" >Scribble</span>
-                        </div>
+                                <a class="navbar-brand logo" href="https://docs.google.com/forms/d/1uIyyrNZlw24HtbR2iNebtWcpxvB2yS7oTE70U48vk14/viewform">Scribble</a>
+                    </div>
 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:black; font-family: 'Josefin Sans', sans-serif;"><font size="4">{{user}}</font><span class="caret"></span></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:white; font-family: 'Josefin Sans', sans-serif;"><font size="4">{{user}}</font><span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                      <li><a href="#">Settings</a></li>
                                     <li class="divider"></li>
@@ -114,7 +114,7 @@
     </nav>
     <div class="row header">
         <div>
-            <h1 class="text" style="text-align:center; margin-bottom:20px;"> <Strong>{{ chat.name }}</Strong> </h1>
+            <h1 class="text" style="text-align:center; ; margin-top:40px; margin-bottom:20px;"> <Strong>{{ chat.name }}</Strong> </h1>
 
             <div class="row well chatWindow">
                 <div class =  "col-md-2 text">
@@ -137,8 +137,7 @@
                 <div class="col col-md-2">
                     <div class="well" id="user_list" style="height:60%;overflow:scroll; overflow-x:hidden; font-family: 'Josefin Sans', sans-serif;">
                         <strong><font size="5">Currently Active</font></strong>
-                        <ul>
-                        </ul>
+                        <font size="4"><ul></ul></font>
                     </div>
                 </div>
                 <div class="row col col-md-8 col-md-offset-2" style="margin-top:20px; font-family: 'Josefin Sans', sans-serif;">

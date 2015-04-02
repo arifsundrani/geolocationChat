@@ -1,29 +1,39 @@
 {% load staticfiles %}
-
 <html>
-	<head>
-		Scribble
-	</head>
-	
-	<body>
-		
-		{% if user.is_anonymous %}
-		
-		<div id="login">
-			<h1>Please login to continue...</h1>
-			<a href="{% url 'django.contrib.auth.views.login' %}"><button type="button">login</button></a>
-		</div>
-		<div>
-			<h2>Or register...</h2>
-			<a href="{% url 'register' %}"><button type="button">register</button></a>
-		</div>
-		
-		{% else $%}
-		
-		<div>
-		<a href="{% url 'django.contrib.auth.views.logout' %}" id="logout"><input type="button" value="logout" class="itemButton"/></a>
-		</div>
-		
+<head>
+        <title>Scribble Login</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+        <link rel="stylesheet" href="{% static "feed.css" %}"></link>
+        <link href='http://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'/>
+        <style>
+
+        .title-style{
+                color: white;
+                font-family: 'Josefin Sans', sans-serif;
+        }
+        .btn{
+                font-family: 'Josefin Sans', sans-serif;
+        }
+
+        </style>
+</head>
+
+<body>
+<!--HEADER-->
+
+         <nav class="navbar navbar-scribble navbar-fixed-top">
+                <div id="navtop" class="container-fluid" >
+                        <div class="navbar-header" >
+                                <span class="navbar-brand logo" >Scribble</span>
+                        </div>
+                </div>
+    </nav>
+<!--END HEADER-->
 			{% block content %}
 			{% endblock %}
 		
