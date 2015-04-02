@@ -6,6 +6,7 @@
     <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{% static 'feed.css' %}">
     <script type="text/javascript" src="{% static 'jquery.gracefulWebSocket.js' %}"></script>
@@ -100,7 +101,7 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:black">{{user}}<span class="caret"></span></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:black; font-family: 'Josefin Sans', sans-serif;"><font size="4">{{user}}</font><span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                      <li><a href="#">Settings</a></li>
                                     <li class="divider"></li>
@@ -113,18 +114,18 @@
     </nav>
     <div class="row header">
         <div>
-            <h1 class="text" style="text-align:center; margin-bottom:20px;"> {{ chat.name }} </h1>
+            <h1 class="text" style="text-align:center; margin-bottom:20px;"> <Strong>{{ chat.name }}</Strong> </h1>
 
             <div class="row well chatWindow">
                 <div class =  "col-md-2 text">
-                        <div class="well activeChat">{{ chat.name }}    </div><div class="well chat">Overheard @ Cox (anonymous)</div>
-                        <div class="well chat"  onClick="changeChat()">NBB Study Group</div>
-                        <div class="well chat"  onClick="changeChat()">Dooley's Festivities Discussion</div>
-                        <div class="well newChat"  onClick="changeChat()">+ Start new chat!</div>
+                        <div class="well activeChat"><font size="+1">{{ chat.name }}</font>   </div><div class="well chat"><font size="+1">Overheard @ Cox (anonymous)</font></div>
+                        <div class="well chat"  onClick="changeChat()"><font size="+1">NBB Study Group</font></div>
+                        <div class="well chat"  onClick="changeChat()"><font size="+1">Dooley's Festivities Discussion</font></div>
+                        <div class="well newChat"  onClick="changeChat()"><font size="+1">+ Start new chat!</font></div>
                 </div>
 
                 <div class="col col-md-8 ">
-                    <div class="chat" id="message_list" style="height:60%;overflow:scroll; overflow-x:hidden; word-wrap: break-word">
+                    <div class="chat" id="message_list" style="height:60%;overflow:scroll; overflow-x:hidden; word-wrap: break-word font-family: 'Josefin Sans', sans-serif;">
                         <ul style="margin-top:10px;">
                               {% for message in chat.messages %}
                                 <p>{{message}} - test</p>
@@ -134,13 +135,13 @@
                 </div>
 
                 <div class="col col-md-2">
-                    <div class="well" id="user_list" style="height:60%;overflow:scroll; overflow-x:hidden;">
-                        <strong>Online now</strong>
+                    <div class="well" id="user_list" style="height:60%;overflow:scroll; overflow-x:hidden; font-family: 'Josefin Sans', sans-serif;">
+                        <strong><font size="5">Currently Active</font></strong>
                         <ul>
                         </ul>
                     </div>
                 </div>
-                <div class="row col col-md-8 col-md-offset-2" style="margin-top:20px">
+                <div class="row col col-md-8 col-md-offset-2" style="margin-top:20px; font-family: 'Josefin Sans', sans-serif;">
                     <div>
                         <input class="form-control" name="term" id="inputbox" cols="40" rows="4">
                     </div>
