@@ -16,30 +16,42 @@ chat.ws.onmessage = function (event) {
 
  if(messageFromServer.charAt(0) === 'j')
  {
-    var new_user = document.createElement('li');
-    new_user.innerHTML = messageFromServer.substr(2);
-    $("#user_list ul").append(new_user);
+    addUser(messageFromServer);
 
  }else if(messageFromServer.charAt(0) === 'l')
  {
-     var user = document.getElementById(messageFromServer.substr(2));
-     user.parentNode.removeChild(user);
-
+     removeUser(messageFromServer);
  }else{
 
     var list_element = document.createElement('div');
     list_element.className = "row message";
     list_element.innerHTML = messageFromServer;
 
-    //if this user sent the message move it to the right, make it purple
-    if(messageFromServer.substr(2) === {{user}})
+    //when the user receives a message from themself move it to the right, color it purple, make it bold
+    if(messageFromServer.substr(2) === {{user}}){
         new_user.style = "text-align:right; color:7C68A3;";
+        list_element.innerHTML = "<strong>"+list_element.innerHTML+"</strong>";
+    }
 
-  $("#message_list ul").append(list_element);
+    $("#message_list ul").append(list_element);
 
-   messages.scrollTop = messages.scrollHeight;
+    messages.scrollTop = messages.scrollHeight;
    }
 };
+
+function addUser(text)
+{
+    var new_user = document.createElement('li');
+    new_user.innerHTML = text.substr(2);
+    $("#user_list ul").append(new_user);
+}
+
+function removeUser(text)
+{
+    var user = document.getElementById(text.substr(2));
+    user.parentNode.removeChild(user);
+}
+
 function getLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(checkCoords);
@@ -74,10 +86,7 @@ inputbox.addEventListener("keydown", function(e) {
     if(inputbox.value !== ""){
 
         //strip html tags
-        var rawMessage = inputbox.value;
-        var div = document.createElement("div");
-        div.innerHTML = rawMessage;
-        var message = div.textContent || div.innerText;
+        var message = stripTags(inputBox.value);
 
         chat.send("<b>{{user}}:</b> " + message);
         inputbox.value="";
@@ -85,6 +94,13 @@ inputbox.addEventListener("keydown", function(e) {
   }
 }, false);
 });
+
+function stripTags(text)
+{
+    var div = document.createElement("div");
+    div.innerHTML = text;
+    return div.textContent || div.innerText;
+}
 
 function changeChat(){
     alert("You don't have permission to do that");
