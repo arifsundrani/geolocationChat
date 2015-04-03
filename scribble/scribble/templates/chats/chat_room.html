@@ -36,7 +36,7 @@
     }
 
       chat.ws.onopen = function (event){
-        chat.send("{{user}}:-:{{chat.name}}")
+        chat.send("{{user}}:-:{{first.name}}")
     }
 
 
@@ -120,12 +120,19 @@
     </nav>
     <div class="row header">
         <div>
-            <h1 class="text" style="text-align:center; ; margin-top:40px; margin-bottom:20px;"> <Strong>{{ chat.name }}</Strong> </h1>
+            <h1 class="text" style="text-align:center; ; margin-top:40px; margin-bottom:20px;"> <Strong>{{ first.name }}</Strong> </h1>
 
             <div class="row well chatWindow">
                 <div class =  "col-md-2 text">
-                        <div class="well activeChat"><font size="+1">{{ chat.name }}</font>   </div><div class="well chat"><font size="+1">Overheard @ Cox (anonymous)</font></div>
-                        <div class="well chat"  onClick="changeChat()"><font size="+1">NBB Study Group</font></div>
+                        <div class="well activeChat"><font size="+1">{{ first.name }}</font>   </div>
+                    
+                    {% if chat_rooms %}
+                    {% for room in chat_rooms %}
+                    <div class="well chat"  onClick="changeChat()"><font size="+1">{{ room.name }}</font></div>
+                    {% endfor %}
+                    {% else %}
+                    <h1>There are no chats!</h1>
+                    {% endif %}
                         <div class="well chat"  onClick="changeChat()"><font size="+1">Dooley's Festivities Discussion</font></div>
                         <a href="{% url 'createNewChat' %}" class="btn btn-default">
                         <div class="well newChat"  ><font size="+1">+ Start new chat!</font></div></a>

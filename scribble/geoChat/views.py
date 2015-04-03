@@ -24,13 +24,19 @@ from models import ChatRoom
 def index(request):
     chat_rooms = ChatRoom.objects.order_by('name')[:5]
     context = {
-        'chat_list': chat_rooms,
+        'chat_rooms': chat_rooms,
     }
     return render(request,'chats/index.html', context)
 
 def chat_room(request, chat_room_id):
-    chat = get_object_or_404(ChatRoom, pk=chat_room_id)
-    return render(request, 'chats/chat_room.html', {'chat': chat})
+    chat_rooms = ChatRoom.objects.order_by('name')[:5]
+    first = get_object_or_404(ChatRoom, pk=chat_room_id)
+
+    context = {
+        'chat_rooms': chat_rooms,
+        'first' : first,
+    }
+    return render(request, 'chats/chat_room.html', context)
 
 def showSettings(request):
 	return render(request, 'settings.html')
@@ -59,7 +65,6 @@ class CreateRegisterView(FormView):
         user = authenticate(username=username, password=password)
         login(self.request, user)
         return super(CreateRegisterView, self).form_valid(form)
-
 
 def create_chat_room(request):
     return HttpResponseRedirect('/')
