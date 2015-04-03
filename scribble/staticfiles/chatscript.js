@@ -7,7 +7,6 @@ $(document).ready( function() {
       chat.ws.send(message);
 }
 
-var onlineUsers = [];
 var anonymous = 0;
 
 
@@ -16,11 +15,18 @@ chat.ws.onmessage = function (event) {
 
  if(messageFromServer.charAt(0) === 'j')
  {
-    addUser(messageFromServer);
+    addUser(messageFromServer.substr(2));
+
+    if(messageFromServer.substr(2) === "AnonymousUser")
+        anonymous++;
 
  }else if(messageFromServer.charAt(0) === 'l')
  {
-     removeUser(messageFromServer);
+     removeUser(messageFromServer.substr(2));
+
+     if(messageFromServer.substr(2) === "AnonymousUser")
+        if(anonymous > 0)
+            anonymous--;
  }else{
 
     var list_element = document.createElement('div');
@@ -42,13 +48,13 @@ chat.ws.onmessage = function (event) {
 function addUser(text)
 {
     var new_user = document.createElement('li');
-    new_user.innerHTML = text.substr(2);
+    new_user.innerHTML = text;
     $("#user_list ul").append(new_user);
 }
 
 function removeUser(text)
 {
-    var user = document.getElementById(text.substr(2));
+    var user = document.getElementById(text));
     user.parentNode.removeChild(user);
 }
 
