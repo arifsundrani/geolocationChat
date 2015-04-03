@@ -34,7 +34,15 @@ def chat_room(request, chat_room_id):
 
 def showSettings(request):
 	return render(request, 'settings.html')
-	
+
+def createNewChat(request):
+    return render(request, 'chats/createChat.html')
+
+def createRoom(request):
+    c = ChatRoom(name= request.POST.get('chat_name',False))
+    c.save()
+    return HttpResponseRedirect('/')
+
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/login/')
