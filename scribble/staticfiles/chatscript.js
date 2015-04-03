@@ -72,7 +72,14 @@ inputbox.addEventListener("keydown", function(e) {
   if (e.keyCode == 13) {
     e.preventDefault(); // sometimes useful
     if(inputbox.value !== ""){
-        chat.send("<b>{{user}}:</b> " + inputbox.value);
+
+        //strip html tags
+        var rawMessage = inputbox.value;
+        var div = document.createElement("div");
+        div.innerHTML = rawMessage;
+        var message = div.textContent || div.innerText;
+
+        chat.send("<b>{{user}}:</b> " + message);
         inputbox.value="";
     }
   }
