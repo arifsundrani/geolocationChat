@@ -1,5 +1,44 @@
 <!--
 //setup
+function addUser(text)
+{
+    var new_user = document.createElement('li');
+    new_user.innerHTML = text;
+    $("#user_list ul").append(new_user);
+}
+
+function removeUser(text)
+{
+    var user = document.getElementById(text);
+    user.parentNode.removeChild(user);
+}
+
+function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(checkCoords);
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    }
+
+function checkCoords(position) {
+    if(position.coords.latitude > 33.8 || position.coords.latitude < 33.6){
+        if(position.coords.longitude > -84 ||  position.coords.longitude < -82){
+            alert("You can't see this chat, please go away");
+        }
+    }
+}
+
+function stripTags(text)
+{
+    var div = document.createElement("div");
+    div.innerHTML = text;
+    return div.textContent || div.innerText;
+}
+
+function changeChat(){
+    alert("You don't have permission to do that");
+
 $(document).ready( function() {
     window.chat = {};
     chat.ws = $.gracefulWebSocket("ws://45.55.163.213:8026/ws");
@@ -34,7 +73,7 @@ chat.ws.onmessage = function (event) {
     list_element.innerHTML = messageFromServer;
 
     //when the user receives a message from themself move it to the right, color it purple, make it bold
-    if(messageFromServer.substr(2) === {{user}}){
+    if(messageFromServer.substr(2) === "{{user}}" ){
         new_user.style = "text-align:right; color:7C68A3;";
         list_element.innerHTML = "<strong>"+list_element.innerHTML+"</strong>";
     }
@@ -45,34 +84,7 @@ chat.ws.onmessage = function (event) {
    }
 };
 
-function addUser(text)
-{
-    var new_user = document.createElement('li');
-    new_user.innerHTML = text;
-    $("#user_list ul").append(new_user);
-}
 
-function removeUser(text)
-{
-    var user = document.getElementById(text));
-    user.parentNode.removeChild(user);
-}
-
-function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(checkCoords);
-        } else {
-            alert("Geolocation is not supported by this browser.");
-        }
-    }
-
-function checkCoords(position) {
-    if(position.coords.latitude > 33.8 || position.coords.latitude < 33.6){
-        if(position.coords.longitude > -84 ||  position.coords.longitude < -82){
-            alert("You can't see this chat, please go away");
-        }
-    }
-}
 
 
   chat.ws.onopen = function (event){
@@ -101,15 +113,7 @@ inputbox.addEventListener("keydown", function(e) {
 }, false);
 });
 
-function stripTags(text)
-{
-    var div = document.createElement("div");
-    div.innerHTML = text;
-    return div.textContent || div.innerText;
-}
 
-function changeChat(){
-    alert("You don't have permission to do that");
 }
 
 
