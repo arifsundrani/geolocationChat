@@ -7,6 +7,7 @@ from geoChat.models import Comment, ChatRoom
 #testing
 #added comment
 #testing to see if web hook works.
+#Test number 2
 
 class ChatRoomTest(TestCase):
     def test_room_was_made(self):
