@@ -8,15 +8,16 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 
         <link rel="stylesheet" href="{% static "feed.css" %}"></link>
+        <link href='http://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'/>
         <style>
 
         .title-style{
                 color: white;
-                font-family: 'Pacifico', cursive;
+                font-family: 'Josefin Sans', sans-serif;
         }
         .btn{
-                font-family: 'Pacifico', cursive;
+                font-family: 'Josefin Sans', sans-serif;
         }
 
         </style>
@@ -28,8 +29,8 @@
          <nav class="navbar navbar-scribble navbar-fixed-top">
                 <div id="navtop" class="container-fluid" >
                         <div class="navbar-header" >
-                                <span class="navbar-brand logo" >Scribble</span>
-                        </div>
+                                <a class="navbar-brand logo" href="https://docs.google.com/forms/d/1uIyyrNZlw24HtbR2iNebtWcpxvB2yS7oTE70U48vk14/viewform">Scribble</a>
+                    </div>
                 </div>
     </nav>
 <!--END HEADER-->
@@ -69,12 +70,12 @@
 
 
 
-        <div style="text-align:center"><label for="user_name">Username</label>
+        <div style="text-align:center"><h3 for="user_name" style="font-family: 'Josefin Sans', sans-serif;">Username</h3>
         <div style="text-align:center"><td>{{ form.username }}</td>
 
 
 
-        <div style="text-align:center"><label for="password" style="margin-top:10px">Password</label>
+        <div style="text-align:center"><h3 for="password" style="margin-top:10px; font-family: 'Josefin Sans', sans-serif;">Password</h3>
         <div style="text-align:center"><td>{{ form.password }}</td>
 
 

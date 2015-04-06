@@ -1,26 +1,29 @@
 {% load staticfiles %}
 <html>
 <head>
-        <title>Scribble Login</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
         <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'/>
+        <link href='http://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
+
 
         <link rel="stylesheet" href="{% static "feed.css" %}"></link>
         <style>
 
         .title-style{
                 color: white;
-                font-family: 'Pacifico', cursive;
+                font-family: 'Josefin Sans', sans-serif;
         }
         .btn{
-                font-family: 'Pacifico', cursive;
+                font-family: 'Josefin Sans', sans-serif;
         }
 
         </style>
 </head>
+        <title>Scribble Login</title>
+
 
 <body>
 <!--HEADER-->
@@ -28,7 +31,8 @@
          <nav class="navbar navbar-scribble navbar-fixed-top">
                 <div id="navtop" class="container-fluid" >
                         <div class="navbar-header" >
-                                <span class="navbar-brand logo" >Scribble</span>
+
+                                <a class="navbar-brand logo" href="https://docs.google.com/forms/d/1uIyyrNZlw24HtbR2iNebtWcpxvB2yS7oTE70U48vk14/viewform">Scribble</a>
                         </div>
                 </div>
     </nav>
@@ -60,21 +64,14 @@
     {% endif %}
 
     <div style="text-align:center"><a href="/login" class="btn btn-default" style="margin-top:10px">Back</a>
-
-        <br>
-        <br>
-        <br>
-
-    <div style="text-align:center"><label for="user_name">Username</label>
+    <div style="text-align:center"><h4 for="user_name" style="margin-top:40px; font-family: 'Josefin Sans', sans-serif;">Username</h4>
     <div style="text-align:center"><p>{{ form.username }}</p>
-    <div style="text-align:center"><label for="password" style="margin-top:10px">Password</label>
+    <div style="text-align:center"><h4 for="password" style="margin-top:10px; font-family: 'Josefin Sans', sans-serif;">Password</h4>
     <div style="text-align:center"><p>{{form.password1}}</p>
-    <div style="text-align:center"><label for="password2" style="margin-top:10px">Confirm Password</label>
+    <div style="text-align:center"><h4 for="password2" style="margin-top:10px; font-family: 'Josefin Sans', sans-serif;">Confirm Password</h4>
     <div style="text-align:center"><p>{{form.password2}}</p>
-
-    <br>
-
-    <div style="text-align:center"><input type="submit"value="Submit" class="btn btn-primary" style="margin-top:10px">
+        
+    <div style="text-align:center"><input type="submit"value="Submit" class="btn btn-primary" style="margin-top:40px">
 
 </form>
                             <br>

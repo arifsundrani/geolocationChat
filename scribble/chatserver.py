@@ -62,6 +62,8 @@ class MyChat(basic.LineReceiver):
 
         for c in self.factory.live_rooms[self.current_room.name].clients:
             c.message('j ' + self.user_name)
+            if c is not self:
+                self.message('j ' + c.user_name)
 
 
 
