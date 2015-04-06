@@ -40,7 +40,7 @@
 
             <div class="row well chatWindow">
                 <div class="col col-lg-8 col-lg-push-2 ">
-                    <div class="chat" id="message_list" style="height:60%;overflow:scroll; overflow-x:hidden;">
+                    <div class="chat" id="message_list" style="height:60%;overflow:scroll; overflow-x:hidden;word-wrap: break-word;">
                         <ul style="margin-top:10px;">
                               {% for message in chat.messages %}
                                 <p>{{message}} - test</p>
@@ -63,7 +63,7 @@
                 </div>
 
                 <div class="col col-md-2">
-                    <div class="well" id="user_list" style="height:60%;overflow:scroll; overflow-x:hidden;">
+                    <div class="well" id="user_list" style="height:60%;overflow:scroll;overflow-x:hidden;">
                         <strong>Online now</strong>
                         <ul>
                         </ul>
