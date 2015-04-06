@@ -1,6 +1,7 @@
 <!--
 //setup
-function addUser(text)
+
+        function addUser(text)
 {
     var new_user = document.createElement('li');
     new_user.innerHTML = text;
@@ -38,7 +39,7 @@ function stripTags(text)
 
 function changeChat(){
     alert("You don't have permission to do that");
-
+    }
 $(document).ready( function() {
     window.chat = {};
     chat.ws = $.gracefulWebSocket("ws://45.55.163.213:8026/ws");
@@ -112,9 +113,6 @@ inputbox.addEventListener("keydown", function(e) {
   }
 }, false);
 });
-
-
-}
 
 
 -->
