@@ -24,6 +24,8 @@ class Page(models.Model):
 
 class ChatRoom(models.Model):
     name = models.CharField(max_length=50)
+    long = models.FloatField()
+    lat = models.FloatField()
     active = models.BooleanField(default=True) #maybe add isSubChat boolean with parentChat name
     def __unicode__(self):
         return self.name
