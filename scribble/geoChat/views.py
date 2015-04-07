@@ -15,9 +15,12 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 from django.contrib.auth.models import User
-from django.contrib.auth import logout, login, authenticate
+from django.contrib.auth import logout, login, authenticate, models
 from django.contrib.auth.forms import UserCreationForm
 from models import ChatRoom
+from django.utils import timezone
+
+from django.contrib.auth.models import models
 
 
 
@@ -45,7 +48,7 @@ def createNewChat(request):
     return render(request, 'chats/createChat.html')
 
 def createRoom(request):
-    c = ChatRoom(name= request.POST.get('chat_name',False), kill_time = request.POST.get('kill_time',False), long = request.POST.get('lat',False), lat = request.POST.get('long',False))
+    c = ChatRoom(name= request.POST.get('chat_name',False), long =2, lat = request.POST.get('lat',False))
     c.save()
     return HttpResponseRedirect('/')
 
