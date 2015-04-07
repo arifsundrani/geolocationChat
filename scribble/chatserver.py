@@ -65,6 +65,13 @@ class MyChat(basic.LineReceiver):
             if c is not self:
                 self.message('j ' + c.user_name)
 
+    @staticmethod
+    def resize_chat_messages(messages, start):
+        temp = []
+        for x in range(start, len(messages)):
+            temp.append(messages[x])
+        messages = temp
+
 
 
 #Twisted imports
