@@ -68,6 +68,7 @@ function changeChat()
 
 $(document).ready( function() {
     window.chat = {};
+    usersOnline = [];
     var anonymous = 0;
     chat.ws = $.gracefulWebSocket("ws://45.55.163.213:8026/ws");
 
@@ -86,7 +87,12 @@ $(document).ready( function() {
 
         if(messageFromServer.charAt(0) === 'j')
          {
-            addUser(messageFromServer.substr(2));
+            if(! messageFromServer.substr(2) in usersOnline)
+            {
+                addUser(messageFromServer.substr(2));
+                usersOnline.push(messageFromServer.substr(2));
+            }
+
 
             if(messageFromServer.substr(2) === "AnonymousUser")
                 anonymous++;
