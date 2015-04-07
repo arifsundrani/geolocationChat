@@ -1,6 +1,7 @@
 from twisted.protocols import basic
 from twisted.web.websockets import WebSocketsResource, WebSocketsProtocol, lookupProtocolForFactory
 import os
+import json
 
 
 class MyChat(basic.LineReceiver):
@@ -12,14 +13,19 @@ class MyChat(basic.LineReceiver):
 
     def connectionMade(self):
         print "User connected"
-        self.transport.write('Welcome! \n')
+        packet = {'type': "message", 'content': "Welcome!", 'sender': "system"}
+
+        self.transport.write(packet)
         self.factory.clients.append(self)
 
     def connectionLost(self, reason):
         print "User disconnected"
         if self.current_room is not None:
+            packet = {'type': "leave", 'content': self.user_name, 'sender': "system"}
+            json_dump = json.dumps(packet)
+
             for c in self.factory.live_rooms[self.current_room.name].clients:
-                c.message('l ' + self.user_name)
+                c.message(json_dump)
 
             self.factory.live_rooms[self.current_room.name].clients.remove(self)
         else:
@@ -27,32 +33,38 @@ class MyChat(basic.LineReceiver):
 
     def dataReceived(self, data):
 
-        if data[0:3] != '<b>':
-            self.set_user_and_room(data)
+        packet = json.dumps(data)
+
+        if packet['type'] == "join":
+            self.set_user_and_room(packet['content'])
             self.enter_room()
 
             for item in self.factory.live_rooms[self.current_room.name].messages:
                 self.message(item)
             return
 
-        if self.current_room is not None:
-            self.factory.live_rooms[self.current_room.name].messages.append(data)
-        else:
-            self.transport.write("Error, room not found")
-            self.transport.write("Disconnecting")
+        if packet['type'] == "message":
+            if self.current_room is not None:
+                self.factory.live_rooms[self.current_room.name].messages.append(data)
+            else:
+                self.transport.write("Error, room not found")
+                self.transport.write("Disconnecting")
 
         for c in self.factory.live_rooms[self.current_room.name].clients:
             c.message(data)
 
-    def message(self, message):
-        self.transport.write(message + '\n')
+        if packet['type'] == 'flag':
+            print 'to flag user'
 
-    def set_user_and_room(self, data):
-        split = data.split(':-:')
-        self.user_name = split[0]
-        self.current_room = ChatRoom.objects.get(name=split[1])
+    def message(self, message):
+        self.transport.write(message)
+
+    def set_user_and_room(self, content):
+
+        self.user_name = content['userName']
+        self.current_room = ChatRoom.objects.get(pk=content['room'])
         self.factory.clients.remove(self)
-        print(split[0] + ' joining ' + split[1])
+        print(content['userName'] + ' joining ' + content['room'])
 
     def enter_room(self):
         if self.current_room.name not in self.factory.live_rooms:
@@ -60,17 +72,25 @@ class MyChat(basic.LineReceiver):
 
         self.factory.live_rooms[self.current_room.name].clients.append(self)
 
+        packet = {'type': "join", 'content': {'userName': self.user_name, 'room': self.current_room.name},
+                  'sender': "system"}
+        json_packet_send = json.dumps(packet)
+
+        packet2 = {'type': "join", 'content': {'userName': self.user_name, 'room': self.current_room.name},
+                   'sender': "system"}
+
         for c in self.factory.live_rooms[self.current_room.name].clients:
-            c.message('j ' + self.user_name)
+            c.message(json_packet_send)
             if c is not self:
-                self.message('j ' + c.user_name)
+                packet2['content']['userName'] = c.user_name
+                self.message(json.dumps(packet2))
 
     @staticmethod
     def resize_chat_messages(messages, start):
         temp = []
         for x in range(start, len(messages)):
             temp.append(messages[x])
-        messages = temp
+        return temp
 
 
 
