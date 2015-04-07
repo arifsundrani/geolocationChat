@@ -112,5 +112,19 @@ $(document).ready( function() {
     }, false);
 });
 
+                function getLocation() {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(showPosition);
+                    }
+                }
+                function getLat(position) {
+                    return position.coords.latitude;
+
+                }
+                function getLong(postion) {
+                    return position.coords.longitude;
+                }
+
+
 
 -->
