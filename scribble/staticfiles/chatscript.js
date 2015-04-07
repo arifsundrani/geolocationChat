@@ -105,11 +105,8 @@ $(document).ready( function() {
 
             //strip html tags
             var message = stripTags(inputBox.value);
-            try{
-                chat.send("<b>{{user}}:</b> " + message);
-            }catch(err){
-                alert(err);
-            }
+
+            chat.send("<b>{{user}}:</b> " + message);
             inputbox.value="";
         }
       }
