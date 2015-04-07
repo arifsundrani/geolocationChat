@@ -15,26 +15,43 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 from django.contrib.auth.models import User
-from django.contrib.auth import logout, login, authenticate
+from django.contrib.auth import logout, login, authenticate, models
 from django.contrib.auth.forms import UserCreationForm
 from models import ChatRoom
+from django.utils import timezone
+
+from django.contrib.auth.models import models
 
 
 
 def index(request):
     chat_rooms = ChatRoom.objects.order_by('name')[:5]
     context = {
-        'chat_list': chat_rooms,
+        'chat_rooms': chat_rooms,
     }
     return render(request,'chats/index.html', context)
 
 def chat_room(request, chat_room_id):
-    chat = get_object_or_404(ChatRoom, pk=chat_room_id)
-    return render(request, 'chats/chat_room.html', {'chat': chat})
+    chat_rooms = ChatRoom.objects.order_by('name')[:5]
+    first = get_object_or_404(ChatRoom, pk=chat_room_id)
+
+    context = {
+        'chat_rooms': chat_rooms,
+        'first' : first,
+    }
+    return render(request, 'chats/chat_room.html', context)
 
 def showSettings(request):
 	return render(request, 'settings.html')
-	
+
+def createNewChat(request):
+    return render(request, 'chats/createChat.html')
+
+def createRoom(request):
+    c = ChatRoom(name= request.POST.get('chat_name',False), long =2, lat = request.POST.get('lat',False))
+    c.save()
+    return HttpResponseRedirect('/')
+
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/login/')
@@ -51,7 +68,6 @@ class CreateRegisterView(FormView):
         user = authenticate(username=username, password=password)
         login(self.request, user)
         return super(CreateRegisterView, self).form_valid(form)
-
 
 def create_chat_room(request):
     return HttpResponseRedirect('/')
