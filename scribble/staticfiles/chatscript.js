@@ -1,7 +1,47 @@
 <!--
 //setup
 
-        function addUser(text)
+function sendMessage(String message)
+{
+    var resp = {};
+    resp.type = "message";
+    resp.content = message;
+    res.sender = {{user}};
+    chat.send(resp);
+}
+
+function joinChat()
+{
+    var resp = {};
+    resp.type = "join";
+    resp.content = [];
+    resp.content[userName] = {{user}};
+    resp.content[room] = chat.pk;
+    resp.sender = "system";
+    chat.send(resp);
+}
+
+function leaveChat()
+{
+    var resp = {};
+    resp.type = "leave";
+    resp.content = [];
+    resp.content[userName] = {{user}};
+    resp.content[room] = chat.pk;
+    resp.sender = "system";
+    chat.send(resp);
+}
+
+function flagUser(String who)
+{
+    var resp = {};
+    resp.type = "flag";
+    resp.content = who;
+    resp.sender = {{user}};
+    chat.send(resp);
+}
+
+function addUser(text)
 {
     var new_user = document.createElement('li');
     new_user.innerHTML = text;
@@ -12,22 +52,6 @@ function removeUser(text)
 {
     var user = document.getElementById(text);
     user.parentNode.removeChild(user);
-}
-
-function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(checkCoords);
-        } else {
-            alert("Geolocation is not supported by this browser.");
-        }
-    }
-
-function checkCoords(position) {
-    if(position.coords.latitude > 33.8 || position.coords.latitude < 33.6){
-        if(position.coords.longitude > -84 ||  position.coords.longitude < -82){
-            alert("You can't see this chat, please go away");
-        }
-    }
 }
 
 function stripTags(text)
@@ -48,11 +72,12 @@ $(document).ready( function() {
     chat.ws = $.gracefulWebSocket("ws://45.55.163.213:8026/ws");
 
     chat.ws.onopen = function (event){
-        chat.send("{{user}}:-:{{chat.name}}")
+        joinChat();
+        //chat.send("{{user}}:-:{{chat.name}}")
     };
 
     chat.send = function (message) {
-      chat.ws.send(message);
+        chat.ws.send(message);
     }
 
 
@@ -73,6 +98,8 @@ $(document).ready( function() {
              if(messageFromServer.substr(2) === "AnonymousUser")
                 if(anonymous > 0)
                     anonymous--;
+
+            leaveChat();
         }else{
 
         var list_element = document.createElement('div');
@@ -81,7 +108,7 @@ $(document).ready( function() {
 
         //when the user receives a message from themself move it to the right, color it purple, make it bold
         if(messageFromServer.substr(2) === "{{user}}" ){
-            new_user.style = "text-align:right; color:7C68A3;";
+            list_element.style = "text-align:right; color:7C68A3;";
             list_element.innerHTML = "<strong>"+list_element.innerHTML+"</strong>";
         }
 
@@ -105,6 +132,7 @@ $(document).ready( function() {
 
             //strip html tags
             var message = stripTags(inputBox.value);
+
             chat.send("<b>{{user}}:</b> " + message);
             inputbox.value="";
         }
