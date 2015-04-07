@@ -133,7 +133,7 @@ $(document).ready( function() {
             //strip html tags
             var message = stripTags(inputBox.value);
 
-            chat.send("<b>{{user}}:</b> " + message);
+            sendMessage(message);
             inputbox.value="";
         }
       }
