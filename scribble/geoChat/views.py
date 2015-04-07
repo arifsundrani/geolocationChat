@@ -45,7 +45,7 @@ def createNewChat(request):
     return render(request, 'chats/createChat.html')
 
 def createRoom(request):
-    c = ChatRoom(name= request.POST.get('chat_name',False))
+    c = ChatRoom(name= request.POST.get('chat_name',False), kill_time = request.POST.get('kill_time',False), long = request.POST.get('lat',False), lat = request.POST.get('long',False))
     c.save()
     return HttpResponseRedirect('/')
 
