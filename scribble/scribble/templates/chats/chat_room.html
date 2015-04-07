@@ -36,7 +36,7 @@
     </nav>
     <div class="row header">
         <div>
-            <h1 class="text" style="text-align:center; margin-bottom:20px;"> {{ chat.name }} </h1>
+            <h1 class="text" style="text-align:center; margin-bottom:20px;"> {{first.name}} </h1>
 
             <div class="row well chatWindow">
                 <div class="col col-lg-8 col-lg-push-2 ">
@@ -55,11 +55,22 @@
                 </div>
 
                 <div class =  "col-lg-2 col-lg-pull-8 text">
-                        <div class="well activeChat">{{ chat.name }}</div>
-                    <div class="well chat">Overheard @ Cox (anonymous)</div>
-                        <div class="well chat"  onClick="changeChat()">NBB Study Group</div>
-                        <div class="well chat"  onClick="changeChat()">Dooley's Festivities Discussion</div>
-                        <div class="well newChat"  onClick="changeChat()">+ Start new chat!</div>
+                        <div class="well activeChat"><font size="+1">{{ first.name }}</font>   </div>
+
+                    {% if chat_rooms %}
+
+                    {% for room in chat_rooms %}
+                    {% if room != first %}
+
+                    <div class="well chat"  onClick="changeChat()"><font size="+1">{{ room.name }}</font></div>
+                    {% endif %}
+                    {% endfor %}
+                    {% else %}
+                    <h1>There are no chats!</h1>
+                    {% endif %}
+
+                        <a href="{% url 'createNewChat' %}" class="btn btn-default">
+                        <div class="well newChat"  ><font size="+1">+ Start new chat!</font></div></a>
                 </div>
 
                 <div class="col col-md-2">
