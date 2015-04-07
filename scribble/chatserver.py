@@ -2,6 +2,7 @@ from twisted.protocols import basic
 from twisted.web.websockets import WebSocketsResource, WebSocketsProtocol, lookupProtocolForFactory
 import os
 import json
+from django.utils.html import strip_tags
 
 
 class MyChat(basic.LineReceiver):
@@ -44,6 +45,7 @@ class MyChat(basic.LineReceiver):
             return
 
         if packet['type'] == "message":
+            packet['message'] = strip_tags(packet['message'])
             if self.current_room is not None:
                 self.factory.live_rooms[self.current_room.name].messages.append(data)
             else:
