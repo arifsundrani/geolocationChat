@@ -67,7 +67,7 @@ function changeChat()
 }
 
 $(document).ready( function() {
-    getCoooords();
+    //getCoooords();
     window.chat = {};
     usersOnline = [];
     var anonymous = 0;
@@ -146,29 +146,6 @@ $(document).ready( function() {
       }
     }, false);
 });
-
-
-
-var long;
-var lat;
-                function getLocation() {
-                    if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(showPosition);
-                    }
-                }
-
-                function showPosition(position) {
-                    lat = parseFloat(position.coords.latitude);
-                    long = parseFloat(position.coords.longitude);
-                  }
-
-
-                function getCoooords() {
-                    getLocation();
-                    document.getElementById("lat").value = lat;
-                    document.getElementById("long").value = long;
-
-                }
 
 
 -->
