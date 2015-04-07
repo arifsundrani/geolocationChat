@@ -5,7 +5,7 @@ import json
 from django.utils.html import strip_tags
 
 
-class MyChat(basic.LineReceiver):
+class MyChat(basic.LineReceiver): # pragma: no cover
 
     def __init__(self):
         self.user_name = None
