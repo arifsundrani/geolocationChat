@@ -1,12 +1,6 @@
 from django.test import TestCase, Client, RequestFactory
-from django.test.utils import setup_test_environment
-from django.db import models
-from django.contrib.auth.forms import User
-from django.utils import timezone
-from geoChat.models import Comment, ChatRoom, Page, RegionCoordinates
 from geoChat.views import *
-from django.contrib.auth.views import login, logout
-
+from django.contrib.auth.views import login
 
 # Models
 class RegionCoordinatesTest(TestCase):
@@ -21,10 +15,12 @@ class RegionCoordinatesTest(TestCase):
 
 class ChatRoomTest(TestCase):
     def test_room_was_made(self):
-        a = ChatRoom.objects.create(name='Emory')
+        a = ChatRoom.objects.create(name='Emory',long=2,lat=2)
         a.save()
         self.assertEqual(a.name, 'Emory')
         self.assertEqual(a.active, True)
+        self.assertEqual(a.long,2)
+        self.assertEqual(a.lat,2)
 
 
 class PageModelTest(TestCase):
@@ -43,58 +39,28 @@ class CommentTest(TestCase):
         self.assertEqual(c.user_name, 'AnonymousUser')
         self.assertEqual(c.active, True)
         self.assertEqual(c.text, 'This chat room is wicked cool.')
+        self.assertEqual(c.spam,False)
 
 
 #Views
-class IndexTest(TestCase):
-    def test_index(self):
-        x = Client()
-        response = x.post('/index/', {'username': 'arif', 'password1': 'nope', 'password2': 'nope'})
-
-
-class ChatRoomView(TestCase):
-    def test_chat_room(self):
-        y = Client()
-        response = y.post('/chats/1/', {'username': 'arif', 'password1': 'nope', 'password2': 'nope'})
-
-
-class SettingsTest(TestCase):
-    def test_settings(self):
-        w = Client()
-        response = w.post('/showSettings/', {'username': 'arif', 'password1': 'nope', 'password2': 'nope'})
-
-
-class CreateNewChatView(TestCase):
-    def test_create_chat(self):
-        z = Client()
-        response = z.post('/createChat/', {'username': 'arif', 'password1': 'nope', 'password2': 'nope'})
-
-
-#I don't think the test below is correct, need to do further testing.
-class CreateRoomView(TestCase):
-    def test_create_chat_room(self):
-        a = Client()
-        response = a.post('/createRoom/', {'username': 'arif', 'password1': 'nope', 'password2': 'nope'})
-
-
 class RegisterTest(TestCase):
     def test_register(self):
         v = Client()
         response = v.post('/register/', {'username': 'arif', 'password1': 'nope', 'password2': 'nope'})
+        self.assertEqual(response.status_code,302)
 
-
+#
 class LoginTest(TestCase):
     def test_login(self):
         u = Client()
         response = u.post('/login/', {'username': 'test', 'password': 'nope'})
+        self.assertEqual(response.status_code,200)
 
-
-#Views
 class ViewsTest(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
         self.user = User.objects.create_user(username='test', password='test')
-        self.chatRoom = ChatRoom.objects.create(name='testing')
+        self.chatRoom = ChatRoom.objects.create(name='testing',long=2,lat=2)
 
     def test_login(self):
         request = self.factory.get('/login/')
@@ -132,3 +98,8 @@ class ViewsTest(TestCase):
         request.user = self.user
         response = index(request)
         self.assertEqual(response.status_code, 200)
+
+    def test_logout_view(self):
+        c = Client()
+        response = c.post('/logout/', {'username': 'test', 'password': 'nope'})
+        self.assertEqual(response.status_code,302)
