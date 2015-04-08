@@ -62,7 +62,12 @@
                     {% for room in chat_rooms %}
                     {% if room != first %}
 
-                    <div class="well chat"  onClick="changeChat()"><font size="+1">{{ room.name }}</font></div>
+                    <form action="{% url 'chat_room'  %}" method="POST">
+                        {% csrf_token %}
+                        <input name="chat_room_id" class="form-control" type="text"  style="display:none" value="{{ room.id }}" />
+                        <div class="well chat"><input type="submit" value="{{ room.name }}" class="btn"><font size="+1">{{ room.name }}</font></div>
+                    </form>
+
                     {% endif %}
                     {% endfor %}
                     {% else %}
