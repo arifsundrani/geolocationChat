@@ -5,7 +5,7 @@ import json
 from django.utils.html import escape
 
 
-class MyChat(basic.LineReceiver): # pragma: no cover
+class MyChat(basic.LineReceiver):  # pragma: no cover
 
     def __init__(self):
         self.user_name = None
@@ -34,16 +34,19 @@ class MyChat(basic.LineReceiver): # pragma: no cover
 
     def dataReceived(self, data):
 
-        packet = json.dumps(data)
+        packet = json.dumps(data)  # parse json to python dict
 
+        # check to see what type of message it is
         if packet['type'] == "join":
             self.set_user_and_room(packet['content'])
             self.enter_room()
 
+            # send existing messages to newly joined user
             for item in self.factory.live_rooms[self.current_room.name].messages:
                 self.message(item)
             return
 
+            # message: sanitize and send message to each user in same room
         if packet['type'] == "message":
             packet['message'] = escape(packet['message'])
             if self.current_room is not None:
@@ -95,8 +98,7 @@ class MyChat(basic.LineReceiver): # pragma: no cover
         return temp
 
 
-
-#Twisted imports
+# Twisted imports
 from twisted.web.resource import Resource
 from twisted.web.server import Site
 from twisted.internet import protocol
@@ -106,6 +108,7 @@ from twisted.internet.protocol import Factory
 #Django environment integration
 os.environ['DJANGO_SETTINGS_MODULE'] = 'scribble.settings'
 import django
+
 django.setup()
 from geoChat.models import ChatRoom
 from django.contrib.auth.forms import User
@@ -113,10 +116,12 @@ from django.contrib.auth.forms import User
 
 print(ChatRoom.objects.all())
 
+
 class LiveRoom(object):
     def __init__(self):
         self.messages = []
         self.clients = []
+
 
 class ChatFactory(Factory):
     protocol = MyChat
@@ -124,6 +129,7 @@ class ChatFactory(Factory):
     live_rooms = {}
     rooms = ChatRoom.objects.all()
     print "initializing groups: " + str(rooms)
+
 
 resource = WebSocketsResource(lookupProtocolForFactory(ChatFactory()))
 root = Resource()
