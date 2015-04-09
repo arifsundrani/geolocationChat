@@ -5,7 +5,7 @@ import json
 from django.utils.html import escape
 
 
-class MyChat(basic.LineReceiver): # pragma: no cover
+class MyChat(basic.LineReceiver):
 
     def __init__(self):
         self.user_name = None
