@@ -36,6 +36,8 @@ class CommentTest(TestCase):
         c = Comment.objects.create(text='This chat room is wicked cool.', postDate=timezone.now(),
                                    user_name='AnonymousUser')
         c.save()
+        b = c
+        b.save()
         self.assertEqual(c.user_name, 'AnonymousUser')
         self.assertEqual(c.active, True)
         self.assertEqual(c.text, 'This chat room is wicked cool.')
@@ -102,4 +104,10 @@ class ViewsTest(TestCase):
     def test_logout_view(self):
         c = Client()
         response = c.post('/logout/', {'username': 'test', 'password': 'nope'})
+        self.assertEqual(response.status_code,302)
+
+    def test_create_chat_room(self):
+        request = self.factory.get('/chats/1/')
+        request.user = self.user
+        response = create_chat_room(request)
         self.assertEqual(response.status_code,302)
