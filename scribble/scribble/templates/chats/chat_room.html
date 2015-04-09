@@ -62,10 +62,10 @@
                     {% for room in chat_rooms %}
                     {% if room != first %}
 
-                    <form action="{% url 'chat_room'  %}" method="POST">
+                    <form action="{% url 'chat_room2' %}" method="POST">
                         {% csrf_token %}
                         <input name="chat_room_id" class="form-control" type="text"  style="display:none" value="{{ room.id }}" />
-                        <div class="well chat"><input type="submit" value="{{ room.name }}" class="btn"><font size="+1">{{ room.name }}</font></div>
+                        <div class="well chat"><input type="submit" value="go2page" class="btn"><font size="+1">{{ room.name }}</font></div>
                     </form>
 
                     {% endif %}

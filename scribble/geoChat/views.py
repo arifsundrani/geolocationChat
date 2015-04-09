@@ -41,6 +41,16 @@ def chat_room(request, chat_room_id):
     }
     return render(request, 'chats/chat_room.html', context)
 
+def chat_room2(request):
+    chat_rooms = ChatRoom.objects.order_by('name')[:8]
+    first = get_object_or_404(ChatRoom, pk=request.POST.get('chat_room_id',False))
+
+    context = {
+        'chat_rooms': chat_rooms,
+        'first' : first,
+    }
+    return render(request, 'chats/chat_room.html', context)
+
 def showSettings(request):
 	return render(request, 'settings.html')
 
