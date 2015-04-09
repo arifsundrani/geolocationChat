@@ -12,8 +12,8 @@ function getLocation() {
 function showPosition(position) {
     lat = parseFloat(position.coords.latitude);
     long = parseFloat(position.coords.longitude);
-    document.getElementById("lat").value = Math.round(lat);
-    document.getElementById("long").value = Math.round(long);
+    document.getElementById("lat").value = lat;
+    document.getElementById("long").value = long;
   }
 
 
