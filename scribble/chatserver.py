@@ -11,6 +11,7 @@ class MyChat(basic.LineReceiver):  # pragma: no cover
         self.user_name = None
         self.current_room = None
         self.live_room = None
+        self.current_room_id = None
 
     def connectionMade(self):
         print "User connected"
@@ -25,10 +26,10 @@ class MyChat(basic.LineReceiver):  # pragma: no cover
             packet = {'type': "leave", 'content': self.user_name, 'sender': "system"}
             json_dump = json.dumps(packet)
 
-            for c in self.factory.live_rooms[self.current_room.name].clients:
+            for c in self.factory.live_rooms[self.current_room_id].clients:
                 c.message(json_dump)
 
-            self.factory.live_rooms[self.current_room.name].clients.remove(self)
+            self.factory.live_rooms[self.current_room_id].clients.remove(self)
         else:
             self.factory.clients.remove(self)
 
@@ -42,7 +43,7 @@ class MyChat(basic.LineReceiver):  # pragma: no cover
             self.enter_room()
 
             # send existing messages to newly joined user
-            for item in self.factory.live_rooms[self.current_room.name].messages:
+            for item in self.factory.live_rooms[self.current_room_id].messages:
                 self.message(item)
             return
 
@@ -50,12 +51,12 @@ class MyChat(basic.LineReceiver):  # pragma: no cover
         if packet['type'] == "message":
             packet['message'] = escape(packet['message'])
             if self.current_room is not None:
-                self.factory.live_rooms[self.current_room.name].messages.append(data)
+                self.factory.live_rooms[self.current_room_id].messages.append(data)
             else:
                 self.transport.write("Error, room not found")
                 self.transport.write("Disconnecting")
 
-        for c in self.factory.live_rooms[self.current_room.name].clients:
+        for c in self.factory.live_rooms[self.current_room_id].clients:
             c.message(data)
 
         if packet['type'] == 'flag':
@@ -72,19 +73,21 @@ class MyChat(basic.LineReceiver):  # pragma: no cover
         print(content['userName'] + ' joining ' + content['room'])
 
     def enter_room(self):
-        if self.current_room.name not in self.factory.live_rooms:
-            self.factory.live_rooms[self.current_room.name] = LiveRoom()
+        if self.current_room_id not in self.factory.live_rooms:
+            self.factory.live_rooms[self.current_room_id] = LiveRoom()
 
-        self.factory.live_rooms[self.current_room.name].clients.append(self)
+        self.factory.live_rooms[self.current_room_id].clients.append(self)
 
-        packet = {'type': "join", 'content': {'userName': self.user_name, 'room': self.current_room.name},
+        # packet to send to other users (this user entered your room)
+        packet = {'type': "join", 'content': {'userName': self.user_name, 'room': self.current_room_id},
                   'sender': "system"}
         json_packet_send = json.dumps(packet)
 
-        packet2 = {'type': "join", 'content': {'userName': self.user_name, 'room': self.current_room.name},
+        # packet to send to self (these people are already in your room)
+        packet2 = {'type': "join", 'content': {'userName': self.user_name, 'room': self.current_room_id},
                    'sender': "system"}
 
-        for c in self.factory.live_rooms[self.current_room.name].clients:
+        for c in self.factory.live_rooms[self.current_room_id].clients:
             c.message(json_packet_send)
             if c is not self:
                 packet2['content']['userName'] = c.user_name
@@ -124,6 +127,7 @@ class LiveRoom(object):
 
 
 class ChatFactory(Factory):
+    access_count = 0
     protocol = MyChat
     clients = []
     live_rooms = {}
