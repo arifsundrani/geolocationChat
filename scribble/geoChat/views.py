@@ -32,7 +32,7 @@ def index(request):
     return render(request,'chats/index.html', context)
 
 def chat_room(request, chat_room_id):
-    chat_rooms = ChatRoom.objects.order_by('name')[:8]
+    chat_rooms = ChatRoom.objects.order_by('name')[:6]
     first = get_object_or_404(ChatRoom, pk=chat_room_id)
 
     context = {

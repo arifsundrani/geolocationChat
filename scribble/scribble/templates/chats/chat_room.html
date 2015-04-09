@@ -65,7 +65,10 @@
                     <form action="{% url 'chat_room2' %}" method="POST">
                         {% csrf_token %}
                         <input name="chat_room_id" class="form-control" type="text"  style="display:none" value="{{ room.id }}" />
-                        <div class="well chat"><input type="submit" value="go2page" class="btn"><font size="+1">{{ room.name }}</font></div>
+                        <div class="">
+                            <input type="submit" value="{{ room.name }}" class="btn btn-block btn-lg btn-default" style="height:55px">
+                            <!--<font size="+1">{{ room.name }}</font>-->
+                        </div>
                     </form>
 
                     {% endif %}
