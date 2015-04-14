@@ -5,6 +5,9 @@ import json
 from django.utils.html import escape
 
 
+
+
+
 class MyChat(basic.LineReceiver):  # pragma: no cover
 
     def __init__(self):
@@ -35,11 +38,14 @@ class MyChat(basic.LineReceiver):  # pragma: no cover
 
     def dataReceived(self, data):
 
-        packet = json.dumps(data)  # parse json to python dict
+        packet = json.loads(data)  # parse json to python dict
+
+        print "packet "+str(packet)
+        print packet['type']
 
         # check to see what type of message it is
         if packet['type'] == "join":
-            self.set_user_and_room(packet['content'])
+            self.set_user_and_room(packet['content']['userName'])
             self.enter_room()
 
             # send existing messages to newly joined user
@@ -52,27 +58,34 @@ class MyChat(basic.LineReceiver):  # pragma: no cover
             packet['message'] = escape(packet['message'])
             if self.current_room is not None:
                 self.factory.live_rooms[self.current_room_id].messages.append(data)
+                for c in self.factory.live_rooms[self.current_room_id].clients:
+                    c.message(data)
+                return
             else:
                 self.transport.write("Error, room not found")
                 self.transport.write("Disconnecting")
-
-        for c in self.factory.live_rooms[self.current_room_id].clients:
-            c.message(data)
+                self.factory.users.remove(self)
+                return
 
         if packet['type'] == 'flag':
-            print 'to flag user'
+            print packet['sender'] + 'to flag user' + packet['content']
 
     def message(self, message):
         self.transport.write(message)
 
     def set_user_and_room(self, content):
-
-        self.user_name = content['userName']
+        self.user_name = content
         self.current_room = ChatRoom.objects.get(pk=content['room'])
         self.factory.clients.remove(self)
         print(content['userName'] + ' joining ' + content['room'])
 
     def enter_room(self):
+        # access count increase
+        if self.factory.access_count == 200:
+            self.delete_unused_rooms()
+        else:
+            self.factory.access_count += 1
+
         if self.current_room_id not in self.factory.live_rooms:
             self.factory.live_rooms[self.current_room_id] = LiveRoom()
 
@@ -99,6 +112,10 @@ class MyChat(basic.LineReceiver):  # pragma: no cover
         for x in range(start, len(messages)):
             temp.append(messages[x])
         return temp
+
+    @staticmethod
+    def delete_unused_rooms():
+        pass
 
 
 # Twisted imports

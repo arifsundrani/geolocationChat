@@ -1,12 +1,12 @@
 <!--
 //setup
 
-function sendMessage(String message)
+function sendMessage(message)
 {
     var resp = {};
     resp.type = "message";
     resp.content = message;
-    res.sender = {{user}};
+    res.sender = "{{user}}";
     chat.send(resp);
 }
 
@@ -14,11 +14,9 @@ function joinChat()
 {
     var resp = {};
     resp.type = "join";
-    resp.content = [];
-    resp.content[userName] = {{user}};
-    resp.content[room] = chat.pk;
+    resp.content = {"userName" : "{{user}}", "room" : "{{chat.pk}}"};
     resp.sender = "system";
-    chat.send(resp);
+    chat.send(JSON.stringify(resp));
 }
 
 function leaveChat()
@@ -26,18 +24,18 @@ function leaveChat()
     var resp = {};
     resp.type = "leave";
     resp.content = [];
-    resp.content[userName] = {{user}};
-    resp.content[room] = chat.pk;
+    resp.content['userName'] = "{{user}}";
+    resp.content['room'] = chat.pk;
     resp.sender = "system";
     chat.send(resp);
 }
 
-function flagUser(String who)
+function flagUser(who)
 {
     var resp = {};
     resp.type = "flag";
     resp.content = who;
-    resp.sender = {{user}};
+    resp.sender = "{{user}}";
     chat.send(resp);
 }
 
@@ -71,7 +69,7 @@ $(document).ready( function() {
     window.chat = {};
     usersOnline = [];
     var anonymous = 0;
-    chat.ws = $.gracefulWebSocket("ws://45.55.163.213:8026/ws");
+    chat.ws = $.gracefulWebSocket("ws://10.40.83.74:8026/ws");
 
     chat.ws.onopen = function (event){
         joinChat();
