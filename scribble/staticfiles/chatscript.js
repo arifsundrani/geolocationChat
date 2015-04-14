@@ -6,7 +6,7 @@ function sendMessage(message, user)
     var resp = {};
     resp.type = "message";
     resp.content = message;
-    res.sender = user;
+    resp.sender = user;
     chat.send(resp);
 }
 
@@ -14,7 +14,7 @@ function joinChat(user, pk)
 {
     var resp = {};
     resp.type = "join";
-    resp.content = {"userName" : user, "room" : pk;
+    resp.content = {"userName" : user, "room" : pk};
     resp.sender = "system";
     chat.send(JSON.stringify(resp));
 }
