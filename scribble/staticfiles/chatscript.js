@@ -1,41 +1,41 @@
 <!--
 //setup
 
-function sendMessage(message)
+function sendMessage(message, user)
 {
     var resp = {};
     resp.type = "message";
     resp.content = message;
-    res.sender = "{{user}}";
+    res.sender = user;
     chat.send(resp);
 }
 
-function joinChat()
+function joinChat(user, pk)
 {
     var resp = {};
     resp.type = "join";
-    resp.content = {"userName" : "{{user}}", "room" : "{{chat.pk}}"};
+    resp.content = {"userName" : user, "room" : pk;
     resp.sender = "system";
     chat.send(JSON.stringify(resp));
 }
 
-function leaveChat()
+function leaveChat(user)
 {
     var resp = {};
     resp.type = "leave";
     resp.content = [];
-    resp.content['userName'] = "{{user}}";
+    resp.content['userName'] = user;
     resp.content['room'] = chat.pk;
     resp.sender = "system";
     chat.send(resp);
 }
 
-function flagUser(who)
+function flagUser(who, user)
 {
     var resp = {};
     resp.type = "flag";
     resp.content = who;
-    resp.sender = "{{user}}";
+    resp.sender = user;
     chat.send(resp);
 }
 
@@ -46,7 +46,7 @@ function addUser(text)
     $("#user_list ul").append(new_user);
 }
 
-function removeUser(text)
+function removeUser(text, user)
 {
     var user = document.getElementById(text);
     user.parentNode.removeChild(user);
@@ -69,10 +69,13 @@ $(document).ready( function() {
     window.chat = {};
     usersOnline = [];
     var anonymous = 0;
+    var user = document.getElementById("hold_user").innerHTML;
+    var pk = document.getElementById("hold_pk").innerHTML;
+
     chat.ws = $.gracefulWebSocket("ws://10.40.83.74:8026/ws");
 
     chat.ws.onopen = function (event){
-        joinChat();
+        joinChat(user);
         //chat.send("{{user}}:-:{{chat.name}}")
     };
 
@@ -88,7 +91,7 @@ $(document).ready( function() {
          {
             if(! messageFromServer.substr(2) in usersOnline)
             {
-                addUser(messageFromServer.substr(2));
+                addUser(user);
                 usersOnline.push(messageFromServer.substr(2));
             }
 
@@ -104,7 +107,7 @@ $(document).ready( function() {
                 if(anonymous > 0)
                     anonymous--;
 
-            leaveChat();
+            leaveChat(user);
         }else{
 
         var list_element = document.createElement('div');
@@ -112,10 +115,10 @@ $(document).ready( function() {
         list_element.innerHTML = messageFromServer;
 
         //when the user receives a message from themself move it to the right, color it purple, make it bold
-        if(messageFromServer.substr(2) === "{{user}}" ){
-            list_element.style = "text-align:right; color:7C68A3;";
-            list_element.innerHTML = "<strong>"+list_element.innerHTML+"</strong>";
-        }
+//        if(messageFromServer.substr(2) === "{{user}}" ){
+//            list_element.style = "text-align:right; color:7C68A3;";
+//            list_element.innerHTML = "<strong>"+list_element.innerHTML+"</strong>";
+//        }
 
         $("#message_list ul").append(list_element);
 
@@ -138,7 +141,7 @@ $(document).ready( function() {
             //strip html tags
             var message = stripTags(inputBox.value);
 
-            sendMessage(message);
+            sendMessage(message, user);
             inputbox.value="";
         }
       }

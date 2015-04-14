@@ -11,15 +11,12 @@
     <link rel="stylesheet" href="{% static 'feed.css' %}">
     <script type="text/javascript" src="{% static 'jquery.gracefulWebSocket.js' %}"></script>
     <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'/>
-    <script>
-        function setUser()
-        {
-            user = {{user}};
-        }
-    </script>
+
 
 </head>
-<body onload="setUser()">
+<body>
+    <p id="hold_user" style="display:hidden">{{user}}</p>
+    <p id="hold_pk" style="display:hidden">{{chat.pk}}</p>
      <nav class="navbar navbar-scribble navbar-fixed-top">
                 <div id="navtop" class="container-fluid" >
                         <div class="navbar-header" >
