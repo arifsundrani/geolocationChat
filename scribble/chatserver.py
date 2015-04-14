@@ -113,6 +113,7 @@ class MyChat(basic.LineReceiver):  # pragma: no cover
             temp.append(messages[x])
         return temp
 
+    # method to clear rooms
     @staticmethod
     def delete_unused_rooms():
         pass
