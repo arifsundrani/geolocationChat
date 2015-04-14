@@ -23,6 +23,7 @@ class Page(models.Model):
 
 
 class ChatRoom(models.Model):
+    thres = models.FloatField(null = True, blank = True)
     name = models.CharField(max_length=50)
     long = models.FloatField()
     lat = models.FloatField()

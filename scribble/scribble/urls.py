@@ -39,7 +39,6 @@ urlpatterns = patterns('',
     	), name='home'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^login/$', 'django.contrib.auth.views.login'),
-    #url(r'^logout/$', 'django.contrib.auth.views.logout'),
     url(r'^logout/$', geoChat.views.logout_view, name="logout"),
     #url('^register/', CreateView.as_view(
     #	template_name='registration/register.html',
@@ -48,11 +47,6 @@ urlpatterns = patterns('',
     #	), name='register'),
     url('^register/', geoChat.views.CreateRegisterView.as_view(),name='register'),
     url(r'^settings/$', geoChat.views.showSettings, name='settings'),#.as_view(), name = 'settings'),
-   # url('^password/', CreateView.as_view(
-   #	template_name='settings/password.html',
-   # 	form_class=PasswordChangeForm(),
-   # 	success_url='/'
-    #	), name='password'),
 
     #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^chats/', include('geoChat.urls')),
