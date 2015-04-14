@@ -1,12 +1,13 @@
 <!--
 //setup
+var user = "";
 
 function sendMessage(String message)
 {
     var resp = {};
     resp.type = "message";
     resp.content = message;
-    res.sender = {{user}};
+    res.sender = user;
     chat.send(resp);
 }
 
@@ -15,7 +16,7 @@ function joinChat()
     var resp = {};
     resp.type = "join";
     resp.content = [];
-    resp.content[userName] = {{user}};
+    resp.content[userName] = user;
     resp.content[room] = chat.pk;
     resp.sender = "system";
     chat.send(resp);
@@ -26,7 +27,7 @@ function leaveChat()
     var resp = {};
     resp.type = "leave";
     resp.content = [];
-    resp.content[userName] = {{user}};
+    resp.content[userName] = user;
     resp.content[room] = chat.pk;
     resp.sender = "system";
     chat.send(resp);
@@ -37,7 +38,7 @@ function flagUser(String who)
     var resp = {};
     resp.type = "flag";
     resp.content = who;
-    resp.sender = {{user}};
+    resp.sender = user;
     chat.send(resp);
 }
 
@@ -114,10 +115,10 @@ $(document).ready( function() {
         list_element.innerHTML = messageFromServer;
 
         //when the user receives a message from themself move it to the right, color it purple, make it bold
-        if(messageFromServer.substr(2) === "{{user}}" ){
-            list_element.style = "text-align:right; color:7C68A3;";
-            list_element.innerHTML = "<strong>"+list_element.innerHTML+"</strong>";
-        }
+//        if(messageFromServer.substr(2) === user ){
+//            list_element.style = "text-align:right; color:7C68A3;";
+//            list_element.innerHTML = "<strong>"+list_element.innerHTML+"</strong>";
+//        }
 
         $("#message_list ul").append(list_element);
 
