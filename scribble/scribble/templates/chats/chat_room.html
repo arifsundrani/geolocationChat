@@ -12,11 +12,14 @@
     <script type="text/javascript" src="{% static 'jquery.gracefulWebSocket.js' %}"></script>
     <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'/>
     <script>
-        user = {{user}};
+        function setUser()
+        {
+            user = {{user}};
+        }
     </script>
 
 </head>
-<body onload="getLocation()">
+<body onload="setUser()">
      <nav class="navbar navbar-scribble navbar-fixed-top">
                 <div id="navtop" class="container-fluid" >
                         <div class="navbar-header" >
