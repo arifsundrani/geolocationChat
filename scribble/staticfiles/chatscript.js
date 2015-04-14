@@ -1,4 +1,4 @@
-<!--
+
 //setup
 
 function sendMessage(message, user)
@@ -148,5 +148,3 @@ $(document).ready( function() {
     }, false);
 });
 
-
--->
