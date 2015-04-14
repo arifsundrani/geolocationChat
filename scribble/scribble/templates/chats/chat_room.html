@@ -11,9 +11,15 @@
     <link rel="stylesheet" href="{% static 'feed.css' %}">
     <script type="text/javascript" src="{% static 'jquery.gracefulWebSocket.js' %}"></script>
     <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'/>
+    <script>
+        function setUser()
+        {
+            user = {{user}};
+        }
+    </script>
 
 </head>
-<body onload="getLocation()">
+<body onload="setUser()">
      <nav class="navbar navbar-scribble navbar-fixed-top">
                 <div id="navtop" class="container-fluid" >
                         <div class="navbar-header" >
@@ -62,7 +68,15 @@
                     {% for room in chat_rooms %}
                     {% if room != first %}
 
-                    <div class="well chat"  onClick="changeChat()"><font size="+1">{{ room.name }}</font></div>
+                    <form action="{% url 'chat_room2' %}" method="POST">
+                        {% csrf_token %}
+                        <input name="chat_room_id" class="form-control" type="text"  style="display:none" value="{{ room.id }}" />
+                        <div class="">
+                            <input type="submit" value="{{ room.name }}" class="btn btn-block btn-lg btn-default" style="height:55px">
+                            <!--<font size="+1">{{ room.name }}</font>-->
+                        </div>
+                    </form>
+
                     {% endif %}
                     {% endfor %}
                     {% else %}

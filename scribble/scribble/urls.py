@@ -56,6 +56,8 @@ urlpatterns = patterns('',
 
     #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^chats/', include('geoChat.urls')),
+    url(r'^chat_room/', geoChat.views.chat_room, name ='chat_room'),
+    url(r'^chat_room2/', geoChat.views.chat_room2, name ='chat_room2'),
     url(r'^createChat/', geoChat.views.createNewChat, name ='createNewChat'),
     url(r'^chatRoom/', geoChat.views.createRoom, name ='createRoom'),
 )
