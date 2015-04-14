@@ -5,6 +5,7 @@ from geoChat.models import Page, Comment, RegionCoordinates
 from django.core.urlresolvers import reverse
 from django.views.generic import View
 from django.views.generic import FormView
+from django.db.models import F
 from django.views.generic import (
     ListView,
     CreateView,
@@ -34,6 +35,7 @@ def index(request):
 def chat_room(request, chat_room_id):
     chat_rooms = ChatRoom.objects.order_by('name')[:6]
     first = get_object_or_404(ChatRoom, pk=chat_room_id)
+
     context = {
         'chat_rooms': chat_rooms,
         'first' : first,
@@ -41,9 +43,16 @@ def chat_room(request, chat_room_id):
     return render(request, 'chats/chat_room.html', context)
 
 def chat_room2(request):
-    chat_rooms = ChatRoom.objects.order_by('name')[:8]
-    first = get_object_or_404(ChatRoom, pk=request.POST.get('chat_room_id',False))
+    #poitive boundry
+    a1 = request.POST.get('lat',False) + .01
+    l1 = request.POST.get('long',False) + .01
+    #negative boundry
+    a2 = request.POST.get('lat',False) - .01
+    l2 = request.POST.get('long',False) - .01
+    chat_rooms = ChatRoom.objects.filter(lat__lte=a1).filter(long__lte=l1).filter(lat__gte=a2).filter(long__gte=l2).order_by('name')
 
+    #chat_rooms = ChatRoom.objects.order_by('name')[:8]
+    first = get_object_or_404(ChatRoom, pk=request.POST.get('chat_room_id',False))
     context = {
         'chat_rooms': chat_rooms,
         'first' : first,
@@ -57,7 +66,7 @@ def createNewChat(request):
     return render(request, 'chats/createChat.html')
 
 def createRoom(request):
-    c = ChatRoom(name= request.POST.get('chat_name',False), long = request.POST.get('long',False), lat = request.POST.get('lat',False))
+    c = ChatRoom(name= request.POST.get('chat_name',False), long = request.POST.get('long',False), lat = request.POST.get('lat',False),)
     c.save()
     return HttpResponseRedirect('/')
 
