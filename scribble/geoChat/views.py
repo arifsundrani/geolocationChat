@@ -44,11 +44,11 @@ def chat_room(request, chat_room_id):
 
 def chat_room2(request):
     #poitive boundry
-    a1 = request.POST.get('lat',False) + .01
-    l1 = request.POST.get('long',False) + .01
+    a1 = request.POST.get('lat',False) + 1
+    l1 = request.POST.get('long',False) + 1
     #negative boundry
-    a2 = request.POST.get('lat',False) - .01
-    l2 = request.POST.get('long',False) - .01
+    a2 = request.POST.get('lat',False) - 1
+    l2 = request.POST.get('long',False) - 1
     chat_rooms = ChatRoom.objects.filter(lat__lte=a1).filter(long__lte=l1).filter(lat__gte=a2).filter(long__gte=l2).order_by('name')
 
     #chat_rooms = ChatRoom.objects.order_by('name')[:8]
