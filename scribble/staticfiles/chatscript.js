@@ -85,7 +85,7 @@ $(document).ready( function() {
 
 
     chat.ws.onmessage = function (event) {
-        obj = event.data.parseJSON();
+        obj = JSON.parse(event.data);
 
         if(obj.type === 'join')
          {
