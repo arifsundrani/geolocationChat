@@ -7,7 +7,7 @@ function sendMessage(message, user)
     resp.type = "message";
     resp.content = message;
     resp.sender = user;
-    chat.send(resp);
+    chat.send(JSON.stringify(resp));
 }
 
 function joinChat(user, pk)
@@ -27,7 +27,7 @@ function leaveChat(user)
     resp.content['userName'] = user;
     resp.content['room'] = chat.pk;
     resp.sender = "system";
-    chat.send(resp);
+    chat.send(JSON.stringify(resp));
 }
 
 function flagUser(who, user)
@@ -36,7 +36,7 @@ function flagUser(who, user)
     resp.type = "flag";
     resp.content = who;
     resp.sender = user;
-    chat.send(resp);
+    chat.send(JSON.stringify(resp));
 }
 
 function addUser(text)
@@ -72,7 +72,8 @@ $(document).ready( function() {
     var user = document.getElementById("hold_user").innerHTML;
     var pk = document.getElementById("hold_pk").innerHTML;
     var obj;
-    chat.ws = $.gracefulWebSocket("ws://10.40.83.74:8026/ws");
+    chat.ws = $.gracefulWebSocket("ws://0.0.0.0:8026/ws");
+    //ws://10.40.83.74:8026/ws
 
     chat.ws.onopen = function (event){
         joinChat(user, pk);
@@ -85,7 +86,10 @@ $(document).ready( function() {
 
 
     chat.ws.onmessage = function (event) {
+
+        console.log("data: "+event.data)
         obj = JSON.parse(event.data);
+
 
         if(obj.type === 'join')
          {
@@ -112,7 +116,7 @@ $(document).ready( function() {
 
         var list_element = document.createElement('div');
         list_element.className = "row message";
-        list_element.innerHTML = obj.content.message;
+        list_element.innerHTML = obj.content;
 
         //when the user receives a message from themself move it to the right, color it purple, make it bold
 //        if(messageFromServer.substr(2) === "{{user}}" ){

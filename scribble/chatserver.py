@@ -20,7 +20,7 @@ class MyChat(basic.LineReceiver):  # pragma: no cover
         print "User connected"
         packet = {'type': "message", 'content': "Welcome!", 'sender': "system"}
 
-        self.transport.write(packet)
+        self.message(json.dumps(packet))
         self.factory.clients.append(self)
 
     def connectionLost(self, reason):
@@ -38,6 +38,7 @@ class MyChat(basic.LineReceiver):  # pragma: no cover
 
     def dataReceived(self, data):
 
+        print "data: ", data
         packet = json.loads(data)  # parse json to python dict
 
         print "packet "+str(packet)
@@ -45,7 +46,7 @@ class MyChat(basic.LineReceiver):  # pragma: no cover
 
         # check to see what type of message it is
         if packet['type'] == "join":
-            self.set_user_and_room(packet['content']['userName'])
+            self.set_user_and_room(packet['content'])
             self.enter_room()
 
             # send existing messages to newly joined user
@@ -55,7 +56,7 @@ class MyChat(basic.LineReceiver):  # pragma: no cover
 
             # message: sanitize and send message to each user in same room
         if packet['type'] == "message":
-            packet['message'] = escape(packet['message'])
+            packet['content'] = escape(packet['content'])
             if self.current_room is not None:
                 self.factory.live_rooms[self.current_room_id].messages.append(data)
                 for c in self.factory.live_rooms[self.current_room_id].clients:
@@ -74,7 +75,7 @@ class MyChat(basic.LineReceiver):  # pragma: no cover
         self.transport.write(message)
 
     def set_user_and_room(self, content):
-        self.user_name = content
+        self.user_name = content['userName']
         self.current_room = ChatRoom.objects.get(pk=content['room'])
         self.factory.clients.remove(self)
         print(content['userName'] + ' joining ' + content['room'])
