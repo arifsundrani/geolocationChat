@@ -95,6 +95,7 @@ $(document).ready( function() {
         joinChat(user, pk);
         //chat.send("{{user}}:-:{{chat.name}}")
     };
+    document.getElementById("numAnon").innerHTML = anonymous;
 
     chat.send = function (message) {
         chat.ws.send(message);
@@ -108,21 +109,26 @@ $(document).ready( function() {
          {
             if(! obj.content.userName in usersOnline)
             {
-                addUser(obj.content.userName);
+                if(! obj.content.userName === "AnonymousUser")
+                    addUser(obj.content.userName);
                 usersOnline.push(obj.content.userName);
             }
 
 
-            if(obj.content.userName === "AnonymousUser")
+            if(obj.content.userName === "AnonymousUser"){
                 anonymous++;
+                document.getElementById("numAnon").innerHTML = anonymous;
+            }
 
         }else if(obj.type === "leave")
         {
              removeUser(obj.content.userName);
 
              if(obj.content.userName === "AnonymousUser")
-                if(anonymous > 0)
+                if(anonymous > 0){
                     anonymous--;
+                    document.getElementById("numAnon").innerHTML = anonymous;
+                }
 
             leaveChat(obj.content.userName);
         }else{
