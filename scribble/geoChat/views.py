@@ -45,8 +45,11 @@ def chat_room(request, chat_room_id):
 
 def chat_room2(request):
     #chat_rooms = ChatRoom.objects.filter(lat1__lte= float(request.POST.get('lat',False))).filter(long1__lte= request.POST.get('long',False)).filter(lat2__gte= request.POST.get('lat',False)).filter(long2__gte= request.POST.get('long',False)).order_by('name')
-    chat_rooms = ChatRoom.objects.filter(lat1__lte= float(request.POST.get('lat',False))).order_by('name')
-
+    chat_rooms = list(ChatRoom.objects.filter(lat1__lte= float(request.POST.get('lat',False))).order_by('name')),
+    chat_rooms1 = []
+    for e in chat_rooms:
+        if e.lat1 <= float(request.POST.get('lat',False)) and e.lat2 >= float(request.POST.get('lat',False)) and e.long1 <= float(request.POST.get('lat',False)) and e.long2 >= float(request.POST.get('lat',False)):
+            chat_rooms1.append(e)
 
     #chat_rooms = ChatRoom.objects.order_by('name')[:8]
     first = get_object_or_404(ChatRoom, pk=request.POST.get('chat_room_id',False))
