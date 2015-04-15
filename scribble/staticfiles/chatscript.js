@@ -6,7 +6,7 @@ function sendMessage(message, user)
     var resp = {};
     resp.type = "message";
     resp.content = message;
-    res.sender = user;
+    resp.sender = user;
     chat.send(resp);
 }
 
@@ -14,7 +14,7 @@ function joinChat(user, pk)
 {
     var resp = {};
     resp.type = "join";
-    resp.content = {"userName" : user, "room" : pk;
+    resp.content = {"userName" : user, "room" : pk};
     resp.sender = "system";
     chat.send(JSON.stringify(resp));
 }
@@ -71,11 +71,15 @@ $(document).ready( function() {
     var anonymous = 0;
     var user = document.getElementById("hold_user").innerHTML;
     var pk = document.getElementById("hold_pk").innerHTML;
-
+    var obj;
     chat.ws = $.gracefulWebSocket("ws://10.40.83.74:8026/ws");
 
     chat.ws.onopen = function (event){
-        joinChat(user);
+<<<<<<< HEAD
+        joinChat(user,pk);
+=======
+        joinChat(user, pk);
+>>>>>>> origin/master
         //chat.send("{{user}}:-:{{chat.name}}")
     };
 
@@ -85,34 +89,34 @@ $(document).ready( function() {
 
 
     chat.ws.onmessage = function (event) {
-        var messageFromServer = event.data;
+        obj = JSON.parse(event.data);
 
-        if(messageFromServer.charAt(0) === 'j')
+        if(obj.type === 'join')
          {
-            if(! messageFromServer.substr(2) in usersOnline)
+            if(! obj.content.userName in usersOnline)
             {
-                addUser(user);
-                usersOnline.push(messageFromServer.substr(2));
+                addUser(obj.content.userName);
+                usersOnline.push(obj.content.userName);
             }
 
 
-            if(messageFromServer.substr(2) === "AnonymousUser")
+            if(obj.content.userName === "AnonymousUser")
                 anonymous++;
 
-        }else if(messageFromServer.charAt(0) === 'l')
+        }else if(obj.type === "leave")
         {
-             removeUser(messageFromServer.substr(2));
+             removeUser(obj.content.userName);
 
-             if(messageFromServer.substr(2) === "AnonymousUser")
+             if(obj.content.userName === "AnonymousUser")
                 if(anonymous > 0)
                     anonymous--;
 
-            leaveChat(user);
+            leaveChat(obj.content.userName);
         }else{
 
         var list_element = document.createElement('div');
         list_element.className = "row message";
-        list_element.innerHTML = messageFromServer;
+        list_element.innerHTML = obj.content.message;
 
         //when the user receives a message from themself move it to the right, color it purple, make it bold
 //        if(messageFromServer.substr(2) === "{{user}}" ){
