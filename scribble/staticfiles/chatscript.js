@@ -71,8 +71,6 @@ $(document).ready( function() {
     var anonymous = 0;
     var user = document.getElementById("hold_user").innerHTML;
     var pk = document.getElementById("hold_pk").innerHTML;
-    console.log("user: "+user)
-    console.log("pk: "+pk)
     var obj;
     chat.ws = $.gracefulWebSocket("ws://10.40.83.74:8026/ws");
 
