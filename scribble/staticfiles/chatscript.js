@@ -14,7 +14,7 @@ function joinChat(user, pk)
 {
     var resp = {};
     resp.type = "join";
-    resp.content = {"userName" : user, "room" : pk;
+    resp.content = {"userName" : user, "room" : pk};
     resp.sender = "system";
     chat.send(JSON.stringify(resp));
 }
@@ -75,7 +75,7 @@ $(document).ready( function() {
     chat.ws = $.gracefulWebSocket("ws://10.40.83.74:8026/ws");
 
     chat.ws.onopen = function (event){
-        joinChat(user);
+        joinChat(user, pk);
         //chat.send("{{user}}:-:{{chat.name}}")
     };
 
