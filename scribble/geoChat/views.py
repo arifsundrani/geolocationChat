@@ -51,6 +51,7 @@ def chat_room2(request):
         if e.lat1 <= float(request.POST.get('lat',False)) and e.lat2 >= float(request.POST.get('lat',False)) and e.long1 <= float(request.POST.get('lat',False)) and e.long2 >= float(request.POST.get('lat',False)):
             chat_rooms1.append(e)
 
+
     #chat_rooms = ChatRoom.objects.order_by('name')[:8]
     first = get_object_or_404(ChatRoom, pk=request.POST.get('chat_room_id',False))
     context = {
