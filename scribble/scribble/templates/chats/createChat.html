@@ -49,7 +49,7 @@
     <div class="col-md-4 col-md-offset-4" style="text-align:right">
                                                 <br>
         <div class="row header">
-                <h1 class="text" style="text-align:center; margin-bottom:20px;"> What do you want to name your chat, friend? </h1>
+                <h1 class="text" style="text-align:center; margin-bottom:20px;"> What do you want to name your chat, {{user}}? </h1>
         </div>
         <form action="{% url 'createRoom' %}" method="POST">
         {% csrf_token %}
