@@ -49,7 +49,7 @@ function addUser(text)
 function removeUser(text, user)
 {
     var user = document.getElementById(text);
-    user.parentNode.removeChild(user);
+//    user.parentNode.removeChild(user);
 }
 
 function stripTags(text)
