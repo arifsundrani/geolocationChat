@@ -44,16 +44,13 @@ def chat_room(request, chat_room_id):
     return render(request, 'chats/chat_room.html', context)
 
 def chat_room2(request):
-
-    chat_rooms = ChatRoom.objects.filter(lat__lte= int(request.POST.get('lat',False) + 1)).filter(long__lte=(int(request.POST.get('long',False)) + 1)).filter(lat__gte=int((request.POST.get('lat',False)) - 1)).filter(long__gte=(int(request.POST.get('long',False)) - 1)).order_by('name')
-
+    chat_rooms = ChatRoom.objects.filter(lat__lte= request.POST.get('lat',False)).order_by('name')
     #chat_rooms = ChatRoom.objects.order_by('name')[:8]
     first = get_object_or_404(ChatRoom, pk=request.POST.get('chat_room_id',False))
-    context = Context({
+    context = {
         'chat_rooms': chat_rooms,
-        'first' : first,
-        'a3' : a3,
-    })
+        'first': first,
+    }
     return render(request, 'chats/chat_room.html', context)
 
 def showSettings(request):
