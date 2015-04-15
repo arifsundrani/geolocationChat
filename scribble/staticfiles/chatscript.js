@@ -133,19 +133,19 @@ $(document).ready( function() {
             leaveChat(obj.content.userName);
         }else{
 
-        var list_element = document.createElement('div');
-        list_element.className = "row message";
-        list_element.innerHTML = obj.content.message;
+            var list_element = document.createElement('div');
+            list_element.className = "row message";
+            list_element.innerHTML = obj.content.message;
 
-        //when the user receives a message from themself move it to the right, color it purple, make it bold
-//        if(messageFromServer.substr(2) === "{{user}}" ){
-//            list_element.style = "text-align:right; color:7C68A3;";
-//            list_element.innerHTML = "<strong>"+list_element.innerHTML+"</strong>";
-//        }
+            //when the user receives a message from themself move it to the right, color it purple, make it bold
+    //        if(messageFromServer.substr(2) === "{{user}}" ){
+    //            list_element.style = "text-align:right; color:7C68A3;";
+    //            list_element.innerHTML = "<strong>"+list_element.innerHTML+"</strong>";
+    //        }
 
-        $("#message_list ul").append(list_element);
+            $("#message_list ul").append(list_element);
 
-        messages.scrollTop = messages.scrollHeight;
+            messages.scrollTop = messages.scrollHeight;
        }
     };
 
@@ -163,8 +163,10 @@ $(document).ready( function() {
 
             //strip html tags
             var message = stripTags(inputBox.value);
-
-            sendMessage(message, user);
+            if(message.indexOf("fuck") != -1)
+                alert("you're rude!")
+            else
+                sendMessage(message, user);
             inputbox.value="";
         }
       }
