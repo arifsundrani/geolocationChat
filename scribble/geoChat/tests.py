@@ -13,22 +13,25 @@ class RegionCoordinatesTest(TestCase):
         self.assertEqual(z.y2, 2)
 
 
-class ChatRoomTest(TestCase):
-    def test_room_was_made(self):
-        a = ChatRoom.objects.create(name='Emory',long=2,lat=2)
-        a.save()
-        self.assertEqual(a.name, 'Emory')
-        self.assertEqual(a.active, True)
-        self.assertEqual(a.long,2)
-        self.assertEqual(a.lat,2)
-
-
 class PageModelTest(TestCase):
     def test_page_was_made(self):
         b = Page.objects.create(createDate=timezone.now(), topic='Testing',
                                 location=RegionCoordinates.objects.create(x1=1, x2=2, y1=1, y2=2))
         b.save()
         self.assertEqual(b.topic, 'Testing')
+
+
+class ChatRoomTest(TestCase):
+    def test_room_was_made(self):
+        a = ChatRoom.objects.create(thres=1,name='Emory',lat1=2,long1=2,lat2=4,long2=4)
+        a.save()
+        self.assertEqual(a.thres,1)
+        self.assertEqual(a.name, 'Emory')
+        self.assertEqual(a.active, True)
+        self.assertEqual(a.lat1,2)
+        self.assertEqual(a.long1,2)
+        self.assertEqual(a.lat2,4)
+        self.assertEqual(a.long2,4)
 
 
 class CommentTest(TestCase):
@@ -62,7 +65,7 @@ class ViewsTest(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
         self.user = User.objects.create_user(username='test', password='test')
-        self.chatRoom = ChatRoom.objects.create(name='testing',long=2,lat=2)
+        self.chatRoom = ChatRoom.objects.create(thres=1,name='Emory',lat1=2,long1=2,lat2=4,long2=4)
 
     def test_login(self):
         request = self.factory.get('/login/')
@@ -94,6 +97,12 @@ class ViewsTest(TestCase):
         request.user = self.user
         response = chat_room(request, 1)
         self.assertEqual(response.status_code, 200)
+    # Need to figure out why we get the error: Http404: No ChatRoom matches the given query.
+    # def test_chat_room_2(self):
+    #     request = self.factory.get('/chats/1/')
+    #     request.chatRoom = self.chatRoom
+    #     response = chat_room2(request)
+    #     self.assertEqual(response.status_code,200)
 
     def test_index(self):
         request = self.factory.get('/chats/1/')

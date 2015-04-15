@@ -5,6 +5,7 @@ from geoChat.models import Page, Comment, RegionCoordinates
 from django.core.urlresolvers import reverse
 from django.views.generic import View
 from django.views.generic import FormView
+from django.template import Context, Template
 from django.db.models import F
 from django.views.generic import (
     ListView,
@@ -43,19 +44,15 @@ def chat_room(request, chat_room_id):
     return render(request, 'chats/chat_room.html', context)
 
 def chat_room2(request):
-    #poitive boundry
-    a1 = request.POST.get('lat',False) + 1
-    l1 = request.POST.get('long',False) + 1
-    #negative boundry
-    a2 = request.POST.get('lat',False) - 1
-    l2 = request.POST.get('long',False) - 1
-    chat_rooms = ChatRoom.objects.filter(lat__lte=a1).filter(long__lte=l1).filter(lat__gte=a2).filter(long__gte=l2).order_by('name')
+    #chat_rooms = ChatRoom.objects.filter(lat1__lte= float(request.POST.get('lat',False))).filter(long1__lte= request.POST.get('long',False)).filter(lat2__gte= request.POST.get('lat',False)).filter(long2__gte= request.POST.get('long',False)).order_by('name')
+    chat_rooms = ChatRoom.objects.filter(lat1__lte= float(request.POST.get('lat',False))).order_by('name')
+
 
     #chat_rooms = ChatRoom.objects.order_by('name')[:8]
     first = get_object_or_404(ChatRoom, pk=request.POST.get('chat_room_id',False))
     context = {
         'chat_rooms': chat_rooms,
-        'first' : first,
+        'first': first,
     }
     return render(request, 'chats/chat_room.html', context)
 
@@ -66,7 +63,19 @@ def createNewChat(request):
     return render(request, 'chats/createChat.html')
 
 def createRoom(request):
-    c = ChatRoom(name= request.POST.get('chat_name',False), long = request.POST.get('long',False), lat = request.POST.get('lat',False),)
+    RA = request.POST.copy()
+    a = float(RA.get('lat',False))
+    a1 = a - 1.0
+
+    b = float(RA.get('long', False))
+    b1 = b - 1
+
+    c =  float(RA.get('lat',False))
+    a2 = c +1
+
+    d = float(RA.get('long',False))
+    b2 = d + 1
+    c = ChatRoom(name= request.POST.get('chat_name',False), lat1 = a1, long1 = b1, lat2 = a2,long2 = b2,)
     c.save()
     return HttpResponseRedirect('/')
 

@@ -54,7 +54,7 @@
                                             <br>
                                             <br>
     {% if form.errors %}
-    <div style="text-align:center; color:red;">(invalid username/password)</div>
+    <h2 style="text-align:center; color:red;">Try that again</h2>
     <br>
 
     {% else %}
@@ -79,7 +79,7 @@
         <div style="text-align:center"><td>{{ form.password }}</td>
 
 
-    <div style="text-align:center"><input type="submit" value="Login" class="btn btn-default" style="margin-top:10px"/> <a href="{% url 'register' %}">
+    <div style="text-align:center"><input type="submit" value="Login" class="btn btn-primary" style="margin-top:10px"/> <a href="{% url 'register' %}">
         <button value="Register" type="button" class="btn btn-default" style="margin-top:10px">Register</button></a>
     <div style="text-align:center"><input type="hidden" name="next" value="{{ next }}" class="btn btn-primary" style="margin-top:10px"/>
     </form>
