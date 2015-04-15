@@ -44,7 +44,10 @@ def chat_room(request, chat_room_id):
     return render(request, 'chats/chat_room.html', context)
 
 def chat_room2(request):
-    chat_rooms = ChatRoom.objects.filter(lat__lte= request.POST.get('lat',False)).order_by('name')
+    chat_rooms = ChatRoom.objects.filter(lat1__lte= float(request.POST.get('lat',False))).filter(long1__lte= request.POST.get('long',False)).filter(lat2__gte= request.POST.get('lat',False)).filter(long2__gte= request.POST.get('long',False)).order_by('name')
+    chat_rooms = ChatRoom.objects.filter(lat1__lte= float(request.POST.get('lat',False))).order_by('name')
+
+
     #chat_rooms = ChatRoom.objects.order_by('name')[:8]
     first = get_object_or_404(ChatRoom, pk=request.POST.get('chat_room_id',False))
     context = {
@@ -61,17 +64,16 @@ def createNewChat(request):
 
 def createRoom(request):
     RA = request.POST.copy()
-    print sys.stderr, RA.get('lat',False)
-    a = RA.get('lat',False)
+    a = float(RA.get('lat',False))
     a1 = a - 1.0
 
-    b = RA.get('long', False)
+    b = float(RA.get('long', False))
     b1 = b - 1
 
-    c =  RA.get('lat',False)
+    c =  float(RA.get('lat',False))
     a2 = c +1
 
-    d = RA.get('long',False)
+    d = float(RA.get('long',False))
     b2 = d + 1
     c = ChatRoom(name= request.POST.get('chat_name',False), lat1 = a1, long1 = b1, lat2 = a2,long2 = b2,)
     c.save()
