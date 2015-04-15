@@ -75,11 +75,7 @@ $(document).ready( function() {
     chat.ws = $.gracefulWebSocket("ws://10.40.83.74:8026/ws");
 
     chat.ws.onopen = function (event){
-<<<<<<< HEAD
         joinChat(user,pk);
-=======
-        joinChat(user, pk);
->>>>>>> origin/master
         //chat.send("{{user}}:-:{{chat.name}}")
     };
 
