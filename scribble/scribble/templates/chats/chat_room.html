@@ -22,7 +22,6 @@
                         <div class="navbar-header" >
                                 <span class="navbar-brand logo" >Scribble</span>
                         </div>
-
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
@@ -40,9 +39,8 @@
     <div class="row header">
         <div>
             <h1 class="text" style="text-align:center; margin-bottom:20px;"> {{first.name}} </h1>
-
             <div class="row well chatWindow">
-                <div class="col col-lg-8 col-lg-push-2 ">
+                <div class="col col-lg-8 col-lg-push-2">
                     <div class="chat" id="message_list" style="height:60%;overflow:scroll; overflow-x:hidden;word-wrap: break-word;">
                         <ul style="margin-top:10px;margin-right:25px">
                               {% for message in chat.messages %}
@@ -50,16 +48,15 @@
                               {% endfor %}
                         </ul>
                     </div>
-                    <div class="row col-lg-12" style="margin-top:10px; margin-bottom:15px">
+                    <div class="row col-lg-12" style="margin-top:10px;">
                         <div>
                             <input class="form-control" name="term" id="inputbox" cols="40" rows="4" style="word-wrap:break-word">
                         </div>
                     </div>
                 </div>
 
-                <div class =  "col-lg-2 col-lg-pull-8 text">
+                <div class =  "col-lg-2 col-lg-pull-8 text" style="height:60%; margin-bottom:15px;overflow:scroll; overflow-x:hidden;">
                         <div class="well activeChat"><font size="+1">{{ first.name }}</font>   </div>
-
 
 
                     {% if chat_rooms %}
