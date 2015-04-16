@@ -71,6 +71,7 @@ function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
     }
+    setTimeout(getLocation,500);
 }
 
 function showPosition(position) {
