@@ -1,6 +1,6 @@
 
 //setup
-
+//functions
 function sendMessage(message, user)
 {
     var resp = {};
@@ -9,6 +9,7 @@ function sendMessage(message, user)
     resp.sender = user;
     chat.send(JSON.stringify(resp));
 }
+
 
 function joinChat(user, pk)
 {
