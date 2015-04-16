@@ -81,7 +81,7 @@ function showPosition(position) {
   }
 
 $(document).ready( function() {
-    //getCoooords();
+    getLocation();
     window.chat = {};
     usersOnline = [];
     var anonymous = 0;
