@@ -76,10 +76,17 @@ function getLocation() {
 function showPosition(position) {
     lat = parseFloat(position.coords.latitude);
     long = parseFloat(position.coords.longitude);
-    document.getElementById("lat").value = lat;
-    document.getElementById("long").value = long;
-    console.log("lat is " + lat + " and long is " + long);
-    setTimeout(getLocation,500);
+
+    var lats = document.getElementsByClassName("lat");
+    for(var i = 0; i < lats.length; i++)
+    {
+        lats[i].value = lat;
+    }
+
+    var longs = document.getElementsByClassName("long");
+    for(var i = 0; i < lats.length; i++)
+        longs[i].value = long;
+    //setTimeout(getLocation,500);
   }
 
 $(document).ready( function() {
