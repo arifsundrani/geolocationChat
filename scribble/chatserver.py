@@ -38,7 +38,7 @@ class MyChat(basic.LineReceiver):
             try:
                 self.factory.live_rooms[self.current_room_id].clients.remove(self)
             except:
-                print "no user: "+self+" in room: "+self.factory.live_rooms[self.current_room_id]
+                print "client does not exist"
         else:
             self.factory.clients.remove(self)
 
