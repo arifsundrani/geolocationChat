@@ -45,6 +45,9 @@ def chat_room(request, chat_room_id):
     }
     return render(request, 'chats/chat_room.html', context)
 
+def about(request):
+    return render(request, 'registration/about.html')
+
 def chat_room2(request):
     #chat_rooms = ChatRoom.objects.filter(lat1__lte= float(request.POST.get('lat',False))).filter(long1__lte= request.POST.get('long',False)).filter(lat2__gte= request.POST.get('lat',False)).filter(long2__gte= request.POST.get('long',False)).order_by('name')
     chat_rooms1 = ChatRoom.objects.all()
