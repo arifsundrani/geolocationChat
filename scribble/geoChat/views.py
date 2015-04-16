@@ -58,6 +58,12 @@ def chat_room2(request):
 
 
     #chat_rooms = ChatRoom.objects.order_by('name')[:8]
+    if chat_rooms.__len__() == 0:
+        list=[1,2]
+        bools = {
+            'noChat': list
+        }
+        return render(request, 'chats/createChat.html', bools)
     first = get_object_or_404(ChatRoom, pk=request.POST.get('chat_room_id',False))
     context = {
         'chat_rooms': chat_rooms,
@@ -69,7 +75,9 @@ def showSettings(request):
 	return render(request, 'settings.html')
 
 def createNewChat(request):
-    return render(request, 'chats/createChat.html')
+    bools = {
+    }
+    return render(request, 'chats/createChat.html',bools)
 
 def createRoom(request):
     RA = request.POST.copy()
@@ -102,8 +110,22 @@ class CreateRegisterView(FormView):
         username = self.request.POST['username']
         password = self.request.POST['password1']
         user = authenticate(username=username, password=password)
-        login(self.request, user)
-        return super(CreateRegisterView, self).form_valid(form)
+        if validateEmail(self.request.POST['email']):
+            login(self.request, user)
+            return super(CreateRegisterView, self).form_valid(form)
+        else:
+            raise ValidationError("Email address is not real")
+
+        return super(CreateRegisterView, self)
 
 def create_chat_room(request):
     return HttpResponseRedirect('/')
+
+def validateEmail(email):
+    from django.core.validators import validate_email
+    from django.core.exceptions import ValidationError
+    try:
+        validate_email(email)
+        return True
+    except ValidationError:
+        return False
