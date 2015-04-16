@@ -73,7 +73,7 @@ $(document).ready( function() {
     var user = document.getElementById("hold_user").innerHTML;
     var pk = document.getElementById("hold_pk").innerHTML;
     var obj;
-    chat.ws = $.gracefulWebSocket("ws://0.0.0.0:8026/ws");
+    chat.ws = $.gracefulWebSocket("ws://10.40.83.74:8026/ws");
     //ws://10.40.83.74:8026/ws
 
     chat.ws.onopen = function (event){

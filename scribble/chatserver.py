@@ -77,8 +77,9 @@ class MyChat(basic.LineReceiver):  # pragma: no cover
     def set_user_and_room(self, content):
         self.user_name = content['userName']
         self.current_room = ChatRoom.objects.get(pk=content['room'])
+        self.current_room_id = content['room']
         self.factory.clients.remove(self)
-        print(content['userName'] + ' joining ' + content['room'])
+        print(content['userName'] + ' joining ' + self.current_room_id)
 
     def enter_room(self):
         # access count increase
