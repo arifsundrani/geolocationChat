@@ -5,6 +5,7 @@ from geoChat.models import Page, Comment, RegionCoordinates
 from django.core.urlresolvers import reverse
 from django.views.generic import View
 from django.views.generic import FormView
+import sys
 from django.template import Context, Template
 from django.db.models import F
 from django.views.generic import (
@@ -45,11 +46,15 @@ def chat_room(request, chat_room_id):
 
 def chat_room2(request):
     #chat_rooms = ChatRoom.objects.filter(lat1__lte= float(request.POST.get('lat',False))).filter(long1__lte= request.POST.get('long',False)).filter(lat2__gte= request.POST.get('lat',False)).filter(long2__gte= request.POST.get('long',False)).order_by('name')
-    chat_rooms = list(ChatRoom.objects.filter(lat1__lte= float(request.POST.get('lat',False))).order_by('name')),
-    chat_rooms1 = []
-    for e in chat_rooms:
-        if e.lat1 <= float(request.POST.get('lat',False)) and e.lat2 >= float(request.POST.get('lat',False)) and e.long1 <= float(request.POST.get('lat',False)) and e.long2 >= float(request.POST.get('lat',False)):
-            chat_rooms1.append(e)
+    chat_rooms1 = ChatRoom.objects.all()
+    chat_rooms = []
+    print float(request.POST.get('lat',False))
+    for e in chat_rooms1:
+        # print str(e.name) + '  ' + str(e.lat1)
+        # print str(e.name) + '  ' + str(e.lat2)
+        if e.lat1 <= float(request.POST.get('lat',False)) and e.lat2 >= float(request.POST.get('lat',False)) and e.long1 <= float(request.POST.get('long',False)) and e.long2 >= float(request.POST.get('long',False)):
+            chat_rooms.append(e)
+
 
 
     #chat_rooms = ChatRoom.objects.order_by('name')[:8]
@@ -102,45 +107,3 @@ class CreateRegisterView(FormView):
 
 def create_chat_room(request):
     return HttpResponseRedirect('/')
-
-#add view function to make new chat rooms
-'''
-class showSettings(View):
-    def get(self, request):
-        return render(request, 'settings.html')
-
-
-class HomeView(CreateView):
-    model = RegionCoordinates
-    template_name = 'base.html'
-
-class  ChatView(object):
-	"""docstring for  ChatView"""
-	def __init__(self, arg):
-		super( ChatView, self).__init__()
-		self.arg = arg
-
-class ProfileView(object):
-	"""docstring for ProfileView"""
-	def __init__(self, arg):
-		super(ProfileView, self).__init__()
-		self.arg = arg
-		
-class ChatListView(object):
-	"""docstring for ChatListView"""
-	def __init__(self, arg):
-		super(ChatListView, self).__init__()
-		self.arg = arg
-
-class SettingsView(object):
-			"""docstring for SettingsView"""
-			def __init__(self, arg):
-				super(SettingsView, self).__init__()
-				self.arg = arg
-
-class CreateChatView(object):
-	"""docstring for CreateChatView"""
-	def __init__(self, arg):
-		super(CreateChatView, self).__init__()
-		self.arg = arg
-'''
