@@ -3,6 +3,7 @@ from twisted.web.websockets import WebSocketsResource, WebSocketsProtocol, looku
 import os
 import json
 from django.utils.html import escape
+import time
 
 
 
@@ -19,6 +20,7 @@ class MyChat(basic.LineReceiver):
     def connectionMade(self):
         print "User connected"
         packet = {'type': "message", 'content': "Welcome!", 'sender': "system"}
+        packet['timestamp'] = time.strftime("%c")
 
         self.message(json.dumps(packet))
         self.factory.clients.append(self)
@@ -27,12 +29,16 @@ class MyChat(basic.LineReceiver):
         print "User disconnected"
         if self.current_room is not None:
             packet = {'type': "leave", 'content': self.user_name, 'sender': "system"}
+            packet['timestamp'] = time.strftime("%c")
             json_dump = json.dumps(packet)
 
             for c in self.factory.live_rooms[self.current_room_id].clients:
                 c.message(json_dump)
 
-            self.factory.live_rooms[self.current_room_id].clients.remove(self)
+            try:
+                self.factory.live_rooms[self.current_room_id].clients.remove(self)
+            except:
+                print "no user: "+self+" in room: "+self.factory.live_rooms[self.current_room_id]
         else:
             self.factory.clients.remove(self)
 
@@ -97,11 +103,13 @@ class MyChat(basic.LineReceiver):
         # packet to send to other users (this user entered your room)
         packet = {'type': "join", 'content': {'userName': self.user_name, 'room': self.current_room_id},
                   'sender': "system"}
+        packet['timestamp'] = time.strftime("%c")
         json_packet_send = json.dumps(packet)
 
         # packet to send to self (these people are already in your room)
         packet2 = {'type': "join", 'content': {'userName': self.user_name, 'room': self.current_room_id},
                    'sender': "system"}
+        packet2['timestamp'] = time.strftime("%c")
 
         for c in self.factory.live_rooms[self.current_room_id].clients:
             c.message(json_packet_send)
