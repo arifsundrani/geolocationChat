@@ -5,6 +5,9 @@ from geoChat.models import Page, Comment, RegionCoordinates
 from django.core.urlresolvers import reverse
 from django.views.generic import View
 from django.views.generic import FormView
+import sys
+from django.template import Context, Template
+from django.db.models import F
 from django.views.generic import (
     ListView,
     CreateView,
@@ -15,9 +18,12 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 from django.contrib.auth.models import User
-from django.contrib.auth import logout, login, authenticate
+from django.contrib.auth import logout, login, authenticate, models
 from django.contrib.auth.forms import UserCreationForm
 from models import ChatRoom
+from django.utils import timezone
+
+from django.contrib.auth.models import models
 
 
 
@@ -29,12 +35,33 @@ def index(request):
     return render(request,'chats/index.html', context)
 
 def chat_room(request, chat_room_id):
-    chat_rooms = ChatRoom.objects.order_by('name')[:5]
+    chat_rooms = ChatRoom.objects.order_by('name')[:6]
     first = get_object_or_404(ChatRoom, pk=chat_room_id)
 
     context = {
         'chat_rooms': chat_rooms,
         'first' : first,
+    }
+    return render(request, 'chats/chat_room.html', context)
+
+def chat_room2(request):
+    #chat_rooms = ChatRoom.objects.filter(lat1__lte= float(request.POST.get('lat',False))).filter(long1__lte= request.POST.get('long',False)).filter(lat2__gte= request.POST.get('lat',False)).filter(long2__gte= request.POST.get('long',False)).order_by('name')
+    chat_rooms1 = ChatRoom.objects.all()
+    chat_rooms = []
+    print float(request.POST.get('lat',False))
+    for e in chat_rooms1:
+        # print str(e.name) + '  ' + str(e.lat1)
+        # print str(e.name) + '  ' + str(e.lat2)
+        if e.lat1 <= float(request.POST.get('lat',False)) and e.lat2 >= float(request.POST.get('lat',False)) and e.long1 <= float(request.POST.get('long',False)) and e.long2 >= float(request.POST.get('long',False)):
+            chat_rooms.append(e)
+
+
+
+    #chat_rooms = ChatRoom.objects.order_by('name')[:8]
+    first = get_object_or_404(ChatRoom, pk=request.POST.get('chat_room_id',False))
+    context = {
+        'chat_rooms': chat_rooms,
+        'first': first,
     }
     return render(request, 'chats/chat_room.html', context)
 
@@ -45,7 +72,19 @@ def createNewChat(request):
     return render(request, 'chats/createChat.html')
 
 def createRoom(request):
-    c = ChatRoom(name= request.POST.get('chat_name',False))
+    RA = request.POST.copy()
+    a = float(RA.get('lat',False))
+    a1 = a - 1.0
+
+    b = float(RA.get('long', False))
+    b1 = b - 1
+
+    c =  float(RA.get('lat',False))
+    a2 = c +1
+
+    d = float(RA.get('long',False))
+    b2 = d + 1
+    c = ChatRoom(name= request.POST.get('chat_name',False), lat1 = a1, long1 = b1, lat2 = a2,long2 = b2,)
     c.save()
     return HttpResponseRedirect('/')
 
@@ -68,45 +107,3 @@ class CreateRegisterView(FormView):
 
 def create_chat_room(request):
     return HttpResponseRedirect('/')
-
-#add view function to make new chat rooms
-'''
-class showSettings(View):
-    def get(self, request):
-        return render(request, 'settings.html')
-
-
-class HomeView(CreateView):
-    model = RegionCoordinates
-    template_name = 'base.html'
-
-class  ChatView(object):
-	"""docstring for  ChatView"""
-	def __init__(self, arg):
-		super( ChatView, self).__init__()
-		self.arg = arg
-
-class ProfileView(object):
-	"""docstring for ProfileView"""
-	def __init__(self, arg):
-		super(ProfileView, self).__init__()
-		self.arg = arg
-		
-class ChatListView(object):
-	"""docstring for ChatListView"""
-	def __init__(self, arg):
-		super(ChatListView, self).__init__()
-		self.arg = arg
-
-class SettingsView(object):
-			"""docstring for SettingsView"""
-			def __init__(self, arg):
-				super(SettingsView, self).__init__()
-				self.arg = arg
-
-class CreateChatView(object):
-	"""docstring for CreateChatView"""
-	def __init__(self, arg):
-		super(CreateChatView, self).__init__()
-		self.arg = arg
-'''

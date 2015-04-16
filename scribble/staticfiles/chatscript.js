@@ -1,33 +1,56 @@
-<!--
-//setup
 
-        function addUser(text)
+//setup
+//functions
+function sendMessage(message, user)
+{
+    var resp = {};
+    resp.type = "message";
+    resp.content = message;
+    resp.sender = user;
+    chat.send(JSON.stringify(resp));
+}
+
+
+function joinChat(user, pk)
+{
+    var resp = {};
+    resp.type = "join";
+    resp.content = {"userName" : user, "room" : pk};
+    resp.sender = "system";
+    chat.send(JSON.stringify(resp));
+}
+
+function leaveChat(user)
+{
+    var resp = {};
+    resp.type = "leave";
+    resp.content = [];
+    resp.content['userName'] = user;
+    resp.content['room'] = chat.pk;
+    resp.sender = "system";
+    chat.send(JSON.stringify(resp));
+}
+
+function flagUser(who, user)
+{
+    var resp = {};
+    resp.type = "flag";
+    resp.content = who;
+    resp.sender = user;
+    chat.send(JSON.stringify(resp));
+}
+
+function addUser(text)
 {
     var new_user = document.createElement('li');
     new_user.innerHTML = text;
     $("#user_list ul").append(new_user);
 }
 
-function removeUser(text)
+function removeUser(text, user)
 {
     var user = document.getElementById(text);
     user.parentNode.removeChild(user);
-}
-
-function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(checkCoords);
-        } else {
-            alert("Geolocation is not supported by this browser.");
-        }
-    }
-
-function checkCoords(position) {
-    if(position.coords.latitude > 33.8 || position.coords.latitude < 33.6){
-        if(position.coords.longitude > -84 ||  position.coords.longitude < -82){
-            alert("You can't see this chat, please go away");
-        }
-    }
 }
 
 function stripTags(text)
@@ -42,48 +65,80 @@ function changeChat()
     alert("You don't have permission to do that");
 }
 
+var long;
+var lat;
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    }
+}
+
+function showPosition(position) {
+    lat = parseFloat(position.coords.latitude);
+    long = parseFloat(position.coords.longitude);
+    document.getElementById("lat").value = lat;
+    document.getElementById("long").value = long;
+  }
+
 $(document).ready( function() {
+    //getCoooords();
     window.chat = {};
+    usersOnline = [];
     var anonymous = 0;
-    chat.ws = $.gracefulWebSocket("ws://45.55.163.213:8026/ws");
+    var user = document.getElementById("hold_user").innerHTML;
+    var pk = document.getElementById("hold_pk").innerHTML;
+    var obj;
+    chat.ws = $.gracefulWebSocket("ws://10.40.83.74:8026/ws");
+    //ws://10.40.83.74:8026/ws
 
     chat.ws.onopen = function (event){
-        chat.send("{{user}}:-:{{chat.name}}")
+        joinChat(user, pk);
+        //chat.send("{{user}}:-:{{chat.name}}")
     };
 
     chat.send = function (message) {
-      chat.ws.send(message);
+        chat.ws.send(message);
     }
 
 
     chat.ws.onmessage = function (event) {
-        var messageFromServer = event.data;
 
-        if(messageFromServer.charAt(0) === 'j')
+        console.log("data: "+event.data)
+        obj = JSON.parse(event.data);
+
+
+        if(obj.type === 'join')
          {
-            addUser(messageFromServer.substr(2));
+            if(! obj.content.userName in usersOnline)
+            {
+                addUser(obj.content.userName);
+                usersOnline.push(obj.content.userName);
+            }
 
-            if(messageFromServer.substr(2) === "AnonymousUser")
+
+            if(obj.content.userName === "AnonymousUser")
                 anonymous++;
 
-        }else if(messageFromServer.charAt(0) === 'l')
+        }else if(obj.type === "leave")
         {
-             removeUser(messageFromServer.substr(2));
+             removeUser(obj.content.userName);
 
-             if(messageFromServer.substr(2) === "AnonymousUser")
+             if(obj.content.userName === "AnonymousUser")
                 if(anonymous > 0)
                     anonymous--;
+
+            leaveChat(obj.content.userName);
         }else{
 
         var list_element = document.createElement('div');
         list_element.className = "row message";
-        list_element.innerHTML = messageFromServer;
+        list_element.innerHTML = "<strong>"obj.sender + ":</strong> "+obj.content;
 
         //when the user receives a message from themself move it to the right, color it purple, make it bold
-        if(messageFromServer.substr(2) === "{{user}}" ){
-            new_user.style = "text-align:right; color:7C68A3;";
-            list_element.innerHTML = "<strong>"+list_element.innerHTML+"</strong>";
-        }
+//        if(messageFromServer.substr(2) === "{{user}}" ){
+//            list_element.style = "text-align:right; color:7C68A3;";
+//            list_element.innerHTML = "<strong>"+list_element.innerHTML+"</strong>";
+//        }
 
         $("#message_list ul").append(list_element);
 
@@ -105,13 +160,10 @@ $(document).ready( function() {
 
             //strip html tags
             var message = stripTags(inputBox.value);
-
-            chat.send("<b>{{user}}:</b> " + message);
+            sendMessage(message, user);
             inputbox.value="";
         }
       }
     }, false);
 });
 
-
--->

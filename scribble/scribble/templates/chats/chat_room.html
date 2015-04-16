@@ -1,7 +1,8 @@
 {% load staticfiles %}
 <html>
 <head>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js "></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="{% static 'newchat.js' %}" type="text/javascript"></script>
     <script src="{% static 'chatscript.js' %}" type="text/javascript"></script>
     <title>Scribble - {{chat.name}}</title>
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
@@ -10,9 +11,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js "></script>
     <link rel="stylesheet" href="{% static 'feed.css' %}">
     <script type="text/javascript" src="{% static 'jquery.gracefulWebSocket.js' %}"></script>
-    <link href='http://fonts.googleapis.com/css?family=Pacifico ' rel='stylesheet' type='text/css'/>
+    <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'/>
+
+
 </head>
-<body onload="getLocation()">
+<body>
+    <p id="hold_user" style="display:hidden">{{user}}</p>
+    <p id="hold_pk" style="display:hidden">{{first.pk}}</p>
      <nav class="navbar navbar-scribble navbar-fixed-top">
                 <div id="navtop" class="container-fluid" >
                         <div class="navbar-header" >
@@ -55,26 +60,38 @@
                 <div class =  "col-lg-2 col-lg-pull-8 text">
                         <div class="well activeChat"><font size="+1">{{ first.name }}</font>   </div>
 
+
+
                     {% if chat_rooms %}
 
                     {% for room in chat_rooms %}
                     {% if room != first %}
 
-                    <div class="well chat"  onClick="changeChat()"><font size="+1">{{ room.name }}</font></div>
+                    <form action="{% url 'chat_room2' %}" method="POST">
+                        {% csrf_token %}
+                        <input name="chat_room_id" class="form-control" type="text"  style="display:none" value="{{ room.id }}" />
+                        <input id = "lat"  name="lat" class="form-control" type="decimal" value="1" style="display:none" />
+                        <input id = "long" name="long" class="form-control" type="decimal" value="1" style="display:none" />
+                        <div class="">
+                            <input type="submit" value="{{ room.name }}" class="btn btn-block btn-lg btn-default" style="height:55px">
+                        </div>
+                    </form>
+
                     {% endif %}
                     {% endfor %}
                     {% else %}
                     <h1>There are no chats!</h1>
                     {% endif %}
 
-                        <a href="{% url 'createNewChat' %}" class="btn btn-default">
-                        <div class="well newChat"  ><font size="+1">+ Start new chat!</font></div></a>
+                        <a href="{% url 'createNewChat' %}" class="">
+                        <div class="newChat well"  ><font size="+1" color="7C68A3">+ Start new chat!</font></div></a>
                 </div>
                 <div class="col col-md-2">
                     <div class="well" id="user_list" style="height:60%;overflow:scroll;overflow-x:hidden;">
                         <strong>Online now</strong>
                         <ul>
                         </ul>
+                        <p>Anonymous Users: <span id="numAnon">0</span></p>
                     </div>
                 </div>
 
