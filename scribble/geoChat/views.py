@@ -5,6 +5,7 @@ from geoChat.models import Page, Comment, RegionCoordinates
 from django.core.urlresolvers import reverse
 from django.views.generic import View
 from django.views.generic import FormView
+from django import forms
 import sys
 from django.template import Context, Template
 from django.db.models import F
@@ -110,12 +111,7 @@ class CreateRegisterView(FormView):
         username = self.request.POST['username']
         password = self.request.POST['password1']
         user = authenticate(username=username, password=password)
-        if validateEmail(self.request.POST['email']):
-            login(self.request, user)
-            return super(CreateRegisterView, self).form_valid(form)
-        else:
-            raise ValidationError("Email address is not real")
-
+        login(self.request, user)
         return super(CreateRegisterView, self)
 
 def create_chat_room(request):
@@ -129,3 +125,5 @@ def validateEmail(email):
         return True
     except ValidationError:
         return False
+def password_reset(request):
+    return password_reset(request)
