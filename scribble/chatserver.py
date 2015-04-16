@@ -85,6 +85,7 @@ class MyChat(basic.LineReceiver):
         # access count increase
         if self.factory.access_count == 200:
             self.delete_unused_rooms()
+            self.factory.live_rooms[self.current_room_id] = self.resize_chat_messages(self.factory.live_rooms[self.current_room_id], 50)
         else:
             self.factory.access_count += 1
 
@@ -116,9 +117,14 @@ class MyChat(basic.LineReceiver):
         return temp
 
     # method to clear rooms
-    @staticmethod
-    def delete_unused_rooms():
-        pass
+    def delete_unused_rooms(self):
+        for key, value in self.factory.live_rooms:
+            try:
+                ChatRoom.objects.get(pk=key)
+            except:
+                del self.factory.live_rooms[key]
+
+
 
 
 # Twisted imports
