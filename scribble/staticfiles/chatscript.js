@@ -132,7 +132,7 @@ $(document).ready( function() {
 
         var list_element = document.createElement('div');
         list_element.className = "row message";
-        list_element.innerHTML = "<strong>"obj.sender + ":</strong> "obj.content;
+        list_element.innerHTML = "<strong>"obj.sender + ":</strong> "+obj.content;
 
         //when the user receives a message from themself move it to the right, color it purple, make it bold
 //        if(messageFromServer.substr(2) === "{{user}}" ){
