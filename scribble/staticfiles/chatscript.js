@@ -65,6 +65,21 @@ function changeChat()
     alert("You don't have permission to do that");
 }
 
+var long;
+var lat;
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    }
+}
+
+function showPosition(position) {
+    lat = parseFloat(position.coords.latitude);
+    long = parseFloat(position.coords.longitude);
+    document.getElementById("lat").value = lat;
+    document.getElementById("long").value = long;
+  }
+
 $(document).ready( function() {
     //getCoooords();
     window.chat = {};
@@ -73,6 +88,7 @@ $(document).ready( function() {
     var user = document.getElementById("hold_user").innerHTML;
     var pk = document.getElementById("hold_pk").innerHTML;
     var obj;
+    getLocation();
     chat.ws = $.gracefulWebSocket("ws://0.0.0.0:8026/ws");
     //ws://10.40.83.74:8026/ws
 
