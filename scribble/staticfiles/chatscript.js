@@ -76,21 +76,32 @@ function getLocation() {
 function showPosition(position) {
     lat = parseFloat(position.coords.latitude);
     long = parseFloat(position.coords.longitude);
-    document.getElementById("lat").value = lat;
-    document.getElementById("long").value = long;
+
+
+//    console.log("lat is " + lat + " and long is " + long);
+    var lats = document.getElementsByClassName("lat");
+    for(var i = 0; i < lats.length; i++)
+    {
+        lats[i].value = lat;
+    }
+
+    var longs = document.getElementsByClassName("long");
+    for(var i = 0; i < lats.length; i++)
+        longs[i].value = long;
+    //setTimeout(getLocation,500);
   }
 
+
 $(document).ready( function() {
-    //getCoooords();
+    getLocation();
     window.chat = {};
     usersOnline = [];
     var anonymous = 0;
     var user = document.getElementById("hold_user").innerHTML;
     var pk = document.getElementById("hold_pk").innerHTML;
     var obj;
-    chat.ws = $.gracefulWebSocket("ws://10.40.83.74:8026/ws");
+    chat.ws = $.gracefulWebSocket("ws://45.55.163.213:8026/ws");
     //ws://10.40.83.74:8026/ws
-
     chat.ws.onopen = function (event){
         joinChat(user, pk);
         //chat.send("{{user}}:-:{{chat.name}}")
@@ -132,7 +143,7 @@ $(document).ready( function() {
 
         var list_element = document.createElement('div');
         list_element.className = "row message";
-        list_element.innerHTML = "<strong>"obj.sender + ":</strong> "+obj.content;
+        list_element.innerHTML = "<strong>" + obj.sender + ":</strong> "+obj.content;
 
         //when the user receives a message from themself move it to the right, color it purple, make it bold
 //        if(messageFromServer.substr(2) === "{{user}}" ){
