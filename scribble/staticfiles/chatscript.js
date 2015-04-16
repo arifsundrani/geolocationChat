@@ -177,7 +177,8 @@ $(document).ready( function() {
             //strip html tags
             var message = stripTags(inputBox.value);
 
-            if(message.toLowerCase().indexOf("fuck") != -1){
+            if(message.toLowerCase().indexOf("fuck") != -1 || message.toLowerCase().indexOf("penis") != -1 || message.toLowerCase().indexOf("pussy") != -1 || message.toLowerCase().indexOf("dick") != -1 || message.toLowerCase().indexOf("bitch") != -1
+            || message.toLowerCase().indexOf("shit") != -1){
                 alert("you're rude!");
                 inputbox.value="I use vulgar language";
             }
