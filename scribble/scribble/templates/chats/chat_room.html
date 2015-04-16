@@ -13,7 +13,7 @@
     <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'/>
 
 </head>
-<body onload="getLocation">
+<body>
     <p id="hold_user" style="display:hidden">{{user}}</p>
     <p id="hold_pk" style="display:hidden">{{first.pk}}</p>
      <nav class="navbar navbar-scribble navbar-fixed-top">
@@ -42,7 +42,7 @@
             <div class="row well chatWindow">
                 <div class="col col-lg-8 col-lg-push-2 ">
                     <div class="chat" id="message_list" style="height:60%;overflow:scroll; overflow-x:hidden;word-wrap: break-word;">
-                        <ul style="margin-top:10px;">
+                        <ul style="margin-top:10px;margin-right:25px">
                               {% for message in chat.messages %}
                                 <p>{{message}} - test</p>
                               {% endfor %}
@@ -50,7 +50,7 @@
                     </div>
                     <div class="row col-lg-12" style="margin-top:10px; margin-bottom:15px">
                         <div>
-                            <input class="form-control" name="term" id="inputbox" cols="40" rows="4" maxlength="100">
+                            <input class="form-control" name="term" id="inputbox" cols="40" rows="4" style="word-wrap:break-word">
                         </div>
                     </div>
                 </div>
@@ -68,8 +68,8 @@
                     <form action="{% url 'chat_room2' %}" method="POST">
                         {% csrf_token %}
                         <input name="chat_room_id" class="form-control" type="text"  style="display:none" value="{{ room.id }}" />
-                        <input id = "lat"  name="lat" class="form-control lat" type="decimal" value="1" style="display:none" />
-                        <input id = "long" name="long" class="form-control long" type="decimal" value="1" style="display:none" />
+                        <input id = "lat"  name="lat" class="form-control lat" type="decimal" value="33.7938818" style="display:none" />
+                        <input id = "long" name="long" class="form-control long" type="decimal" value="-84.3226853" style="display:none" />
                         <div class="">
                             <input type="submit" value="{{ room.name }}" class="btn btn-block btn-lg btn-default" style="height:55px">
                         </div>
@@ -77,8 +77,6 @@
 
                     {% endif %}
                     {% endfor %}
-                    {% else %}
-                    <h1>There are no chats!</h1>
                     {% endif %}
 
                         <a href="{% url 'createNewChat' %}" class="">
