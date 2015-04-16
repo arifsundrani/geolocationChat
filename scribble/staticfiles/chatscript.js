@@ -120,23 +120,28 @@ $(document).ready( function() {
 
         if(obj.type === 'join')
          {
-            if(! obj.content.userName in usersOnline)
+            if(! (obj.content.userName in usersOnline))
             {
-                addUser(obj.content.userName);
+                if(obj.content.userName !== "AnonymousUser")
+                    addUser(obj.content.userName);
                 usersOnline.push(obj.content.userName);
             }
 
 
-            if(obj.content.userName === "AnonymousUser")
+            if(obj.content.userName === "AnonymousUser"){
                 anonymous++;
+                document.getElementById('numAnon').innerHTML = anonymous;
+            }
 
         }else if(obj.type === "leave")
         {
              removeUser(obj.content.userName);
 
              if(obj.content.userName === "AnonymousUser")
-                if(anonymous > 0)
+                if(anonymous > 0){
                     anonymous--;
+                    document.getElementById('numAnon').innerHTML = anonymous;
+                }
 
             leaveChat(obj.content.userName);
         }else{
@@ -172,8 +177,15 @@ $(document).ready( function() {
             //strip html tags
             var message = stripTags(inputBox.value);
 
-            sendMessage(message, user);
-            inputbox.value="";
+            if(message.toLowerCase().indexOf("fuck") != -1 || message.toLowerCase().indexOf("penis") != -1 || message.toLowerCase().indexOf("pussy") != -1 || message.toLowerCase().indexOf("dick") != -1 || message.toLowerCase().indexOf("bitch") != -1
+            || message.toLowerCase().indexOf("shit") != -1){
+                alert("you're rude!");
+                inputbox.value="I use vulgar language";
+            }
+            else{
+                sendMessage(message, user);
+                inputbox.value="";
+            }
         }
       }
     }, false);
