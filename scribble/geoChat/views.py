@@ -5,8 +5,11 @@ from geoChat.models import Page, Comment, RegionCoordinates
 from django.core.urlresolvers import reverse
 from django.views.generic import View
 from django.views.generic import FormView
+<<<<<<< HEAD
 from django.core.exceptions import ValidationError
 from django import forms
+=======
+>>>>>>> origin/master
 import sys
 from django.template import Context, Template
 from django.db.models import F
@@ -45,9 +48,6 @@ def chat_room(request, chat_room_id):
         'first' : first,
     }
     return render(request, 'chats/chat_room.html', context)
-
-def about(request):
-    return render(request, 'registration/about.html')
 
 def chat_room2(request):
     #chat_rooms = ChatRoom.objects.filter(lat1__lte= float(request.POST.get('lat',False))).filter(long1__lte= request.POST.get('long',False)).filter(lat2__gte= request.POST.get('lat',False)).filter(long2__gte= request.POST.get('long',False)).order_by('name')
@@ -115,10 +115,20 @@ class CreateRegisterView(FormView):
         username = self.request.POST['username']
         password = self.request.POST['password1']
         user = authenticate(username=username, password=password)
+<<<<<<< HEAD
         login(self.request, user)
         return super(CreateRegisterView, self).form_valid(form)
 
 
+=======
+        if validateEmail(self.request.POST['email']):
+            login(self.request, user)
+            return super(CreateRegisterView, self).form_valid(form)
+        else:
+            raise ValidationError("Email address is not real")
+
+        return super(CreateRegisterView, self)
+>>>>>>> origin/master
 
 def create_chat_room(request):
     return HttpResponseRedirect('/')
@@ -130,7 +140,11 @@ def validateEmail(email):
         validate_email(email)
         return True
     except ValidationError:
+<<<<<<< HEAD
         return False
 
 def password_reset(request):
     return password_reset(request)
+=======
+        return False
+>>>>>>> origin/master
