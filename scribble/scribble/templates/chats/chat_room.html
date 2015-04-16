@@ -14,7 +14,7 @@
     <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'/>
 
 </head>
-<body onload="getLocation">
+<body>
     <p id="hold_user" style="display:hidden">{{user}}</p>
     <p id="hold_pk" style="display:hidden">{{first.pk}}</p>
      <nav class="navbar navbar-scribble navbar-fixed-top">
@@ -70,8 +70,8 @@
                     <form action="{% url 'chat_room2' %}" method="POST">
                         {% csrf_token %}
                         <input name="chat_room_id" class="form-control" type="text"  style="display:none" value="{{ room.id }}" />
-                        <input id = "lat"  name="lat" class="form-control lat" type="decimal" value="1" style="display:none" />
-                        <input id = "long" name="long" class="form-control long" type="decimal" value="1" style="display:none" />
+                        <input id = "lat"  name="lat" class="form-control lat" type="decimal" value="33.7938818" style="display:none" />
+                        <input id = "long" name="long" class="form-control long" type="decimal" value="-84.3226853" style="display:none" />
                         <div class="">
                             <input type="submit" value="{{ room.name }}" class="btn btn-block btn-lg btn-default" style="height:55px">
                         </div>
@@ -79,8 +79,6 @@
 
                     {% endif %}
                     {% endfor %}
-                    {% else %}
-                    <h1>There are no chats!</h1>
                     {% endif %}
 
                         <a href="{% url 'createNewChat' %}" class="">

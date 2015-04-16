@@ -77,6 +77,8 @@ function showPosition(position) {
     lat = parseFloat(position.coords.latitude);
     long = parseFloat(position.coords.longitude);
 
+
+//    console.log("lat is " + lat + " and long is " + long);
     var lats = document.getElementsByClassName("lat");
     for(var i = 0; i < lats.length; i++)
     {
@@ -89,6 +91,7 @@ function showPosition(position) {
     //setTimeout(getLocation,500);
   }
 
+
 $(document).ready( function() {
     getLocation();
     window.chat = {};
@@ -99,7 +102,6 @@ $(document).ready( function() {
     var obj;
     chat.ws = $.gracefulWebSocket("ws://10.40.83.74:8026/ws");
     //ws://10.40.83.74:8026/ws
-
     chat.ws.onopen = function (event){
         joinChat(user, pk);
         //chat.send("{{user}}:-:{{chat.name}}")
