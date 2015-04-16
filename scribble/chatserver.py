@@ -89,11 +89,11 @@ class MyChat(basic.LineReceiver):
 
     def enter_room(self):
         # access count increase
-        if self.factory.access_count == 20:
-            self.delete_unused_rooms()
-            self.factory.live_rooms[self.current_room_id] = self.resize_chat_messages(self.factory.live_rooms[self.current_room_id], 50)
-        else:
-            self.factory.access_count += 1
+        # if self.factory.access_count == 20:
+        #     self.delete_unused_rooms()
+        #     self.factory.live_rooms[self.current_room_id] = self.resize_chat_messages(self.factory.live_rooms[self.current_room_id], 50)
+        # else:
+        #     self.factory.access_count += 1
 
         if self.current_room_id not in self.factory.live_rooms:
             self.factory.live_rooms[self.current_room_id] = LiveRoom()
