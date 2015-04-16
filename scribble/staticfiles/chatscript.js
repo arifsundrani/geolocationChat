@@ -65,6 +65,21 @@ function changeChat()
     alert("You don't have permission to do that");
 }
 
+var long;
+var lat;
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    }
+}
+
+function showPosition(position) {
+    lat = parseFloat(position.coords.latitude);
+    long = parseFloat(position.coords.longitude);
+    document.getElementById("lat").value = lat;
+    document.getElementById("long").value = long;
+  }
+
 $(document).ready( function() {
     //getCoooords();
     window.chat = {};
@@ -117,7 +132,7 @@ $(document).ready( function() {
 
         var list_element = document.createElement('div');
         list_element.className = "row message";
-        list_element.innerHTML = obj.content;
+        list_element.innerHTML = "<strong>"obj.content + ":</strong> "obj.content;
 
         //when the user receives a message from themself move it to the right, color it purple, make it bold
 //        if(messageFromServer.substr(2) === "{{user}}" ){
